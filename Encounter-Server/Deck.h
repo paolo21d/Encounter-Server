@@ -8,5 +8,7 @@ class Deck {
 public:
 	Deck();
 	~Deck();
+
+	void addCard(const Card& card);
 };
 
