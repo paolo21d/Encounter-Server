@@ -1,7 +1,10 @@
 #pragma once
+#ifndef CARD_H
+#define CARD_H
+
 #include <string>
 using namespace std;
-class Card {
+class Card { 
 	string name;
 	string description;
 	unsigned costMana;
@@ -16,5 +19,9 @@ public:
 	void setPrice(const unsigned& pr);
 	void setName(const string& n);
 	void setDescription(const string& desc);
+
+	virtual void action(); //dla Health i Mana
+	virtual void action(Card* card);//przeciarzenie dla Monster, Removal i Buff
 };
 
+#endif // !CARD_H

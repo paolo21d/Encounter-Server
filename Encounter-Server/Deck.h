@@ -1,4 +1,7 @@
 #pragma once
+#ifndef DECK_H
+#define DECK_H
+
 #include "Card.h"
 #include <vector>
 using namespace std;
@@ -10,5 +13,7 @@ public:
 	~Deck();
 
 	void addCard(const Card& card);
+
 };
 
+#endif // !DECK_H

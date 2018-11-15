@@ -1,8 +1,10 @@
 #include "Location.h"
+using namespace std;
 
 
-
-Location::Location() {
+Location::Location(string addres) {
+	texture.loadFromFile(addres);
+	sprite.setTexture(texture);
 }
 
 
