@@ -5,6 +5,9 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
+extern const unsigned mapSizeX, mapSizeY;
+extern const unsigned areaSizeX, areaSizeY;
+
 using namespace std;
 class Map {
 	vector <Location> locations;

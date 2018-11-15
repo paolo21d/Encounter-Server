@@ -4,10 +4,15 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\Window.hpp>
 #include <string>
+#include "Object.h"
+
+extern const unsigned mapSizeX, mapSizeY;
+extern const unsigned areaSizeX, areaSizeY;
+
 class Location {
-	sf::Texture texture;
-	sf::Sprite sprite;
-	//ptr na Sprite- grafike lokacji
+	int id;
+	Object* ocupation[mapSizeX/areaSizeX][mapSizeY/areaSizeY];
+
 public:
 	Location(std::string addres);
 	~Location();

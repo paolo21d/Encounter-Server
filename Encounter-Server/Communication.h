@@ -8,11 +8,18 @@
 #include <mutex>
 #include <vector>
 #include <SFML/Network.hpp>
+
+#include "Game.h"
 using namespace std;
 class Communication {
 	mutex mm;
 	vector <sf::TcpSocket> vecsoc;
 	sf::TcpSocket tabsoc[2];
+	Game game;
+
+	//pola do komunikacji miedzy server-klient
+	bool readFromBuffSC1, readFromBuffSC2;
+	
 public:
 	Communication();
 	~Communication();
