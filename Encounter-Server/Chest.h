@@ -1,7 +1,11 @@
 #pragma once
 #include "Object.h"
-class Chest :
-	public Object {
+#include "Deck.h"
+
+class Chest :	public Object {
+
+	Deck myDeck;				//kart
+	int gold;				//pieniądze w skrzyni	
 public:
 	Chest();
 	~Chest();
