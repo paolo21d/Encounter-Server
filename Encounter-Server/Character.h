@@ -1,9 +1,12 @@
 #pragma once
-class Character {
+#include "Object.h"
+
+class Character : public Object{
+	
 public:
 	Character();
 	~Character();
 
-	void interaction(); //Hero,Mob - walka, Dealer-handel
+
 };
 
