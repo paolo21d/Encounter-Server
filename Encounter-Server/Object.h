@@ -3,8 +3,8 @@
 #define OBJECT_H
 
 class Object {
-	//wskaznik na Sprite-grafike
-	int x, y;
+	int x, y;		//współrzędne 
+				//voiwcnlqw
 public:
 	Object();
 	~Object();
