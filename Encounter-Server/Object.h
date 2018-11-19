@@ -2,6 +2,8 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+class Hero;
+
 extern const unsigned mapSizeX, mapSizeY;		//ile pikseli ma lokacja
 extern const unsigned areaSizeX, areaSizeY;		//ile pikseli ma pole
 
@@ -14,7 +16,7 @@ public:
 	~Object();
 
 	Object(int x_, int y_, int width_ = 1);
-	virtual void interaction(); //Hero,Mob - walka, Dealer-handel, reszta - nic
+	virtual void interaction(const Hero& invader) = 0; //Hero,Mob - walka, Dealer-handel, reszta - nic
 };
 
 #endif // !OBJECT_H

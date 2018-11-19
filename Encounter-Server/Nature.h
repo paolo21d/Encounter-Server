@@ -7,6 +7,6 @@ public:
 	Nature();
 	~Nature();
 	
-	virtual void interaction();
+	virtual void interaction(const Hero& invader); 		//nie pozwól wejść
 };
 
