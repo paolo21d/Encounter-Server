@@ -18,6 +18,7 @@ public:
 	void removeGold(int spentGold);
 	void addCards(const Deck& newDeck);
 	void removeCards(const Deck& lostCards);
+	//zmienianie statystyk - TODO//
 	virtual void interaction(const Hero& invader);		//walcz
 };
 
