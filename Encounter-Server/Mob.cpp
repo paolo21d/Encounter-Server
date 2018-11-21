@@ -1,9 +1,8 @@
 #include "Mob.h"
 #include "Hero.h"
+#include "News.h"
 
-extern bool FIGHT;
-extern Character& firstFighter;
-extern Character& secondFighter;
+extern News news;
 
 Mob::Mob() {
 }
@@ -15,9 +14,9 @@ Mob::Mob(const Deck& myDeck_, int strength_, int vitality_, int intelligence_): 
 }
 
 void Mob::interaction(const Hero& invader){
-	FIGHT = true;
-	firstFighter = *this;
-	secondFighter = invader;
+	news.gameMode = FIGHT;
+	news.firstFighter = this;
+	news.secondFighter = &invader;
 	return;
 }	
 

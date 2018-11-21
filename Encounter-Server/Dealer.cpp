@@ -1,7 +1,7 @@
 #include "Dealer.h"
+#include "News.h"
 
-extern bool DEAL;
-extern double SALEFACTOR;
+extern News news;
 
 Dealer::Dealer() {
 }
@@ -14,7 +14,7 @@ Dealer::~Dealer() {
 }
 
 void Dealer::interaction(Hero& invader){
-	DEAL = true;
-	SALEFACTOR = saleFactor;
+	news.gameMode = DEAL;
+	news.SALEFACTOR = saleFactor;
 	//możliwe, że karty będą int'ami, więc nie ruszam tego na razie...
 }

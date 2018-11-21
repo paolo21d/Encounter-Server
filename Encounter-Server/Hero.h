@@ -13,7 +13,7 @@ public:
 	Hero();
 	Hero(const Deck& myDeck_, int strength_, int vitality_, int intelligence_, int gold_ = 0);
 	~Hero();
-		
+	
 	void addGold(int newGold);
 	void removeGold(int spentGold);
 	void addCards(const Deck& newDeck);
