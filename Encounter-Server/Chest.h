@@ -10,6 +10,6 @@ public:
 	Chest(Deck&& myDeck_, int gold_);
 	~Chest();
 	
-	virtual void interaction(const Hero& invader);		//odpal skrzynkę
+	virtual void interaction(Hero& invader);		//odpal skrzynkę
 };
 

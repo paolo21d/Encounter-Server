@@ -11,6 +11,6 @@ public:
 	Dealer(Deck&& soldCards_, double saleFactor_);
 	~Dealer();
 
-	virtual void interaction(const Hero& invader);		//handluj z tym
+	virtual void interaction(Hero& invader);		//handluj z tym
 };
 

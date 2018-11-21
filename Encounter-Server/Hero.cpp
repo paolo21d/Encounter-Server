@@ -26,7 +26,17 @@ void Hero::addCards(const Deck& newDeck){
 }
 
 void Hero::removeCards(const Deck& lostCards){
-	myDeck.remove(lostCards);
+	//myDeck.remove(lostCards);
+}
+
+void Hero::changeStrength(int x){
+	strength += x;
+}
+void Hero::changeIntelligence(int x){
+	intelligence += x;
+}
+void Hero::changeVitality(int x){
+	vitality += x;
 }
 
 void Hero::interaction(const Hero& invader){

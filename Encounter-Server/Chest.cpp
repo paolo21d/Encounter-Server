@@ -10,7 +10,7 @@ Chest::Chest(Deck&& myDeck_, int gold_): gold(gold_){
 Chest::~Chest() {
 }
 
-void Chest::interaction(const Hero& invader){
+void Chest::interaction(Hero& invader){
 	invader.addGold(gold);
-	invader.addDeck(myDeck);
+	invader.addCards(myDeck);
 }
