@@ -15,6 +15,6 @@ Dealer::~Dealer() {
 
 void Dealer::interaction(Hero& invader){
 	news.gameMode = DEAL;
-	news.SALEFACTOR = saleFactor;
+	news.dealerFactor = saleFactor;
 	//możliwe, że karty będą int'ami, więc nie ruszam tego na razie...
 }
