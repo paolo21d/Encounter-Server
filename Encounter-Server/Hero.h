@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "Deck.h"
+#include "News.h"
 
 class Hero :	public Character {
 	Deck myDeck;
@@ -21,6 +22,6 @@ public:
 	void changeStrength(int x);
 	void changeIntelligence(int x);
 	void changeVitality(int x);
-	virtual void interaction(const Hero& invader);		//walcz
+	virtual void interaction(Hero& invader, News& news);		//walcz
 };
 

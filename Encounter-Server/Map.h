@@ -3,7 +3,7 @@
 #define MAP_H
 #include "Location.h"
 #include <vector>
-#include <SFML\Graphics.hpp>
+//#include <SFML\Graphics.hpp>
 
 extern const unsigned mapSizeX, mapSizeY;
 extern const unsigned areaSizeX, areaSizeY;

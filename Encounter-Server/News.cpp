@@ -9,5 +9,19 @@ ostream& operator<<(ostream& os, const News& x) {
 		os << "TRADE " << x.dealerFactor << endl;
 	else
 		os << "EXPLO" << endl;
+	cout << "sądziedzi: ";
+	for(int i: {0, 1, 2, 3}) cout << " " << x.adjacent[i];
+	cout << endl << "zarobiłem: " << x.income << endl << "pozycja: " << x.positionX << x.positionY << endl << endl;
+	
 	return os;
+}
+
+void News::reset(){
+	gameMode = EXPLORE;
+	firstFighter = nullptr;
+	secondFighter = nullptr;
+
+	dealerFactor = 0;	
+	
+	income = 0;
 }

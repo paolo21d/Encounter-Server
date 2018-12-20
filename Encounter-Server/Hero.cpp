@@ -1,7 +1,5 @@
 #include "Hero.h"
-#include "News.h"
 
-extern News news;
 
 Hero::Hero() {
 }
@@ -38,7 +36,7 @@ void Hero::changeVitality(int x){
 	vitality += x;
 }
 
-void Hero::interaction(const Hero& invader){
+void Hero::interaction(Hero& invader, News& news){
 	news.gameMode = FIGHT;
 	news.firstFighter = this;
 	news.secondFighter = &invader;
