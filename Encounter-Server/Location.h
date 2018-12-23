@@ -6,12 +6,12 @@
 #include <string>
 #include "Object.h"
 
-extern const unsigned mapSizeX, mapSizeY;
-extern const unsigned areaSizeX, areaSizeY;
+extern const unsigned mapSizeX = 20, mapSizeY = 15;
+extern const unsigned areaSizeX = 50, areaSizeY = 50;
 
 class Location {
 	int id;
-	Object* ocupation[mapSizeX/areaSizeX][mapSizeY/areaSizeY];
+	Object* ocupation[ mapSizeX/areaSizeX ][ mapSizeY/areaSizeY ];
 
 public:
 	Location(std::string addres);
