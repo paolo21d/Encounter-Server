@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <SFML/Network.hpp>
 
 #include "Communication.h"
@@ -20,4 +20,4 @@ int main() {
 	g.startGame(); //tworzy 2 watki game dla 2 userow
 
 	return 0;
-}
+}*/
