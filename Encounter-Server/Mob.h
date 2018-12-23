@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "Deck.h"
+#include "News.h"
 
 class Mob :	public Character {
 	Deck myDeck;
@@ -13,5 +14,5 @@ public:
 	Mob(const Deck& myDeck_, int strength_, int vitality_, int intelligence_);
 	~Mob();
 
-	virtual void interaction(const Hero& invader);		//walcz
+	virtual void interaction(Hero& invader, News& news);		//walcz
 };

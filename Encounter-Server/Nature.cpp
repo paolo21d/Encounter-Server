@@ -1,5 +1,5 @@
 #include "Nature.h"
-//#include "myExeptions.h"
+#include "EncException.h"
 
 
 Nature::Nature() {
@@ -9,6 +9,6 @@ Nature::Nature() {
 Nature::~Nature() {
 }
 
-void Nature::interaction(const Hero& invader){
-	//throw IllegalEntry();
+void Nature::interaction(Hero& invader, News& news){
+	throw IllegalEntry();
 }
