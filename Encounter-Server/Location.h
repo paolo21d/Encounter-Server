@@ -1,8 +1,6 @@
 #pragma once
 #ifndef  LOCATION_H
 #define LOCATION_H
-//#include <SFML\Graphics.hpp>
-//#include <SFML\Window.hpp>
 #include <string>
 #include "Object.h"
 

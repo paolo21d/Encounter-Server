@@ -24,11 +24,12 @@ int Game::giveMeDirection(sf::TcpSocket& socket)	//odbiera info o ruchu gracza
 	size_t received;
 	char pseudoBuffer[100];
 
-	socket.receive(pseudoBuffer, sizeof(pseudoBuffer), received);
 
 	sf::Packet packet;
 	packet << news;
 	socket.send(packet);
+
+	socket.receive(pseudoBuffer, sizeof(pseudoBuffer), received);
 
 	x = pseudoBuffer[0] - '0';
 	cout << x << endl;
