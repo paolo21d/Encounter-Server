@@ -3,7 +3,6 @@
 #include "Hero.h"
 #include "EncException.h"
 #include "Object.h"
-#include <SFML/Network.hpp>
 
 using namespace std;
 
@@ -14,66 +13,67 @@ Game::Game() {
 Game::~Game() {
 }
 
-void Game::startConnection() {
-	/*sf::TcpListener listener;
-	listener.listen(2000);
-	vector<thread> th;
-	thread tabth[10];
-	unsigned ileSoc = 0;
-	while (ileSoc<2) {
-		//sockets.push_back(new sf::TcpSocket);
-		//soc = sockets.end();
-		sf::TcpSocket soc;
-		if (listener.accept(tabsoc[ileSoc]) == sf::Socket::Done) {
-			cout << "Wlaczam watek: " << th.size() + 1 << endl;
-
-			//th.push_back(thread(&Communication::srdata, th.size() + 1, ileSoc));
-			//th.push_back(thread([=] { srdata(th.size() + 1, ileSoc); }));
-			th.push_back(thread(&Game::game, this, th.size() + 1, ileSoc));
-			ileSoc++;
-		}
-
-	}
-	for (unsigned i = 0; i < th.size(); ++i) {
-		th[i].join();
-	}*/
-}
 
 void Game::game(int num, int socnum) {
 	//tutaj jest calutka gra, wymiana informacji itp
 }
 
+int Game::giveMeDirection(sf::TcpSocket& socket)	//odbiera info o ruchu gracza
+{							//wysyła dane o grze
+	int x;
+	size_t received;
+	char pseudoBuffer[100];
+
+	socket.receive(pseudoBuffer, sizeof(pseudoBuffer), received);
+
+	sf::Packet packet;
+	packet << news;
+	socket.send(packet);
+
+	x = pseudoBuffer[0] - '0';
+	cout << x << endl;
+
+	return x;
+}
+
 void Game::invalidGame(Hero& myHero, Location& currentLocation)
 {	
-	startConnection();
+	int portNumber = 2003;
 	int direction;
 	int newX, newY;
+
+				sf::IpAddress ip = sf::IpAddress::getLocalAddress();	//nawiązuje komunikację
+				sf::TcpSocket socket;
+
+				sf::TcpListener listener;
+				listener.listen(portNumber);
+				listener.accept(socket);				//połączenie przez socket 
+
 	cout << news << endl;
-	while(1){try{
+	while(1){try{					//w pętli czekam na zgłoszenia klienta
+		direction = giveMeDirection(socket);		
 		news.reset();
-		giveMeDirection();
-		cin >> direction;	//0-góra, 1-prawo, 2-dół, 3-lewo
-		switch(direction){
+		switch(direction){			//sprawdzam, czy nie wychodzi poza mapę
 			case 0: newX = myHero.getX(); newY = myHero.getY()-1; break;
 			case 1: newX = myHero.getX()+1; newY = myHero.getY(); break;
 			case 2: newX = myHero.getX(); newY = myHero.getY()+1; break;
 			case 3: newX = myHero.getX()-1; newY = myHero.getY(); break;
 			default: throw LeavingMap();
 		}
-		cout << "nowe wsp. " << newX << " " << newY << "stare: " << myHero.getX() << myHero.getY() << endl;
+		cout << "nowe wsp. " << newX << " " << newY << "stare: " << myHero.getX() << myHero.getY() << endl;//tylko wyświetla
 		if(newX >= areasCountX || newX < 0 || newY >= areasCountY || newY < 0)
 			throw LeavingMap();
-		if(currentLocation.ocupation[newX][newY] != nullptr) 
+		if(currentLocation.ocupation[newX][newY] != nullptr) 		// wywołaj interaction dla zajmowanego pola
 			currentLocation.ocupation[newX][newY] -> interaction(myHero, news);
-		if(news.gameMode != EXPLORE)
+		if(news.gameMode != EXPLORE)			//tylko wyświetla
 			cout << "coś się dzieje..." << endl;
-		if(news.gameMode == EXPLORE){
-			myHero.setX(newX);
+		if(news.gameMode == EXPLORE){			//zaktualizuj info o pozycji gracza
+			myHero.setX(newX);			//jeśli gameMode != EXPLORE, to próbował wejść na zajęte pole
 			news.positionX = newX;
 			myHero.setY(newY);
 			news.positionY = newY;
 		}
-		if(currentLocation.ocupation[myHero.getX()][myHero.getY() - 1] == nullptr && myHero.getY() != 0)
+		if(currentLocation.ocupation[myHero.getX()][myHero.getY() - 1] == nullptr && myHero.getY() != 0) //sprawdza zajętość sąsiednich pól
 			news.adjacent[0] = true;
 		else	news.adjacent[0] = false;
 		if(currentLocation.ocupation[myHero.getX() + 1][myHero.getY()] == nullptr && myHero.getX() != 3)
@@ -87,8 +87,8 @@ void Game::invalidGame(Hero& myHero, Location& currentLocation)
 		else	news.adjacent[3] = false;
 	   }//try
 	   catch(LeavingMap){
-	   	cout << "ups..." << endl;
+	   	cout << "Ziomek, nawet nie próbuj uciekać..." << endl;
 	   }
-	   cout << news << endl;
+	   cout << news << endl;	//tylko wyświetla
 	}//while
 }

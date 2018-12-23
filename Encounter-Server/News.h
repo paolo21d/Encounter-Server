@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Character.h"
 #include "Deck.h"
+#include "SFML/Network.hpp"
 
 
 enum Mode{EXPLORE, FIGHT, DEAL};
@@ -22,9 +23,10 @@ struct News{
 	int positionX, positionY;
 
 	void reset();
+	News();
 
 	friend std::ostream& operator<<(std::ostream& os, const News& x);
-
+	friend sf::Packet& operator<<(sf::Packet& pckt, const News& x);
 };
 
 #endif

@@ -16,6 +16,27 @@ ostream& operator<<(ostream& os, const News& x) {
 	return os;
 }
 
+sf::Packet& operator<<(sf::Packet& pckt, const News& x){
+	pckt << x.gameMode;
+	for(int i: {0, 1, 2, 3}) pckt << x.adjacent[i];
+	pckt << x.positionX << x.positionY;
+
+	return pckt;
+}
+
+
+News::News(){
+	gameMode = EXPLORE;
+	firstFighter = nullptr;
+	secondFighter = nullptr;
+	dealerFactor = 0;	
+	income = 0;
+	for(int i:{1,2,3,4}){
+		adjacent[i] = 0;
+	}
+	positionX = positionY = 0;
+}
+
 void News::reset(){
 	gameMode = EXPLORE;
 	firstFighter = nullptr;

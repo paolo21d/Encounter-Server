@@ -44,5 +44,5 @@ int main()
 	location.ocupation[1][2] = &elrond;
 	location.ocupation[0][2] = &precious;
 	
-	game.invalidGame(elfhells, location);
+	thread game.invalidGame(elfhells, location);
 }
