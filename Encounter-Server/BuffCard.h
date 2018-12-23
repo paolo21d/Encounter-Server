@@ -8,8 +8,9 @@ class BuffCard : public Card {
 public:
 	BuffCard();
 	~BuffCard();
+	
+	//void action(); //argument CardUser
 
-	void action(); //argument CardUser
 };
 
 #endif // !BUFFCARD_H

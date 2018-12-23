@@ -9,7 +9,7 @@ public:
 	MonsterCard();
 	~MonsterCard();
 
-	void action(); //argument CardUser
+	//void action(); //argument CardUser
 };
 
 #endif // !MONSTERCARD_H

@@ -9,7 +9,7 @@ public:
 	ManaCard();
 	~ManaCard();
 
-	void action(); 
+	//void action(); 
 };
 
 #endif // !MANACARD_H

@@ -9,7 +9,7 @@ public:
 	HealthCard();
 	~HealthCard();
 
-	void action();
+	//virtual void action();
 };
 
 #endif // !HEALTHCARD_H

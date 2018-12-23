@@ -9,7 +9,7 @@ public:
 	RemovalCard();
 	~RemovalCard();
 
-	void action(); //argument CardUser
+	//void action(); //argument CardUser
 };
 
 #endif // !REMOVALCARD_H
