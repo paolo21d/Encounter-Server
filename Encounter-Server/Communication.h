@@ -27,6 +27,9 @@ public:
 	void srdata(int num, int socnum);
 
 	void startListenning();
+	void sendData(int num, int socnum);
+	void receiveData(int num, int socnum);
+	void initialSend(int socnum);
 };
 
 #endif // !COMMUNICATION_H
