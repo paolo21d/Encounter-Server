@@ -5,7 +5,7 @@
 #include "Object.h"
 
 using namespace std;
-
+using namespace sf;
 
 Game::Game() {
 }
@@ -18,14 +18,14 @@ void Game::game(int num, int socnum) {
 	//tutaj jest calutka gra, wymiana informacji itp
 }
 
-int Game::giveMeDirection(sf::TcpSocket& socket)	//odbiera info o ruchu gracza
+int Game::giveMeDirection(TcpSocket& socket)	//odbiera info o ruchu gracza
 {							//wysyła dane o grze
 	int x;
 	size_t received;
 	char pseudoBuffer[100];
 
 
-	sf::Packet packet;
+	Packet packet;
 	packet << news;
 	socket.send(packet);
 
