@@ -7,6 +7,7 @@
 #include <string>
 #include <mutex>
 #include <vector>
+#include <thread>
 #include <SFML/Network.hpp>
 
 #include "Game.h"
@@ -20,13 +21,15 @@ class Communication {
 	//pola do komunikacji miedzy server-klient
 	bool readFromBuffSC1, readFromBuffSC2;
 	
+	sf::TcpListener listener;
+	vector<thread> th;
 public:
 	Communication();
 	~Communication();
 
 	void srdata(int num, int socnum);
 
-	void startListenning();
+	void startConnection();
 	void sendData(int num, int socnum);
 	void receiveData(int num, int socnum);
 	void initialSend(int socnum);
