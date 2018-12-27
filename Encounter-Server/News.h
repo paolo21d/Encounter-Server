@@ -7,24 +7,21 @@
 #include "SFML/Network.hpp"
 
 
-enum Mode{EXPLORE, FIGHT, DEAL};
+enum Mode { EXPLORE, FIGHT, DEAL };
 
 struct NewsExplore {
+	NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0);
 
-	Mode gameMode;
 	/*const Character* firstFighter; //przerzucić do klasy game
 	const Character* secondFighter;*/
-	
 	//int income;
-	int adjacent[4];			//0-góra, 1-prawa, 2-dół, 3-lewa //0-mozna wejsc, 1-pole nieinteraktywne, 2-pole interaktywne
-	int positionX, positionY;
-	///
-	void reset();
-	NewsExplore();
+	Mode gameMode; //w obie strony
+	int adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //0-mozna wejsc, 1-pole nieinteraktywne, 2-pole interaktywne //wysylane z serwera do klienta
+	int positionX, positionY; //wysylane od klienta do serwera
 
-	//friend std::ostream& operator<<(std::ostream& os, const NewsExpolore& x);
+	friend std::ostream& operator<<(std::ostream& os, const NewsExplore& x);
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsExplore& x);
-	friend sf::Packet& operator>>(sf::Packet& pckt, const NewsExplore& x);
+	friend sf::Packet& operator >> (sf::Packet& pckt, NewsExplore& x);
 };
 
 struct NewsDeal {
@@ -34,13 +31,13 @@ struct NewsDeal {
 	std::vector <int> cardsId;
 
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsDeal& x);
-	friend sf::Packet& operator>>(sf::Packet& pckt, const NewsDeal& x);
+	friend sf::Packet& operator>>(sf::Packet& pckt, NewsDeal& x);
 };
 
 struct NewsFight {
 	Mode gameMode;
 
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsFight& x);
-	friend sf::Packet& operator>>(sf::Packet& pckt, const NewsFight& x);
+	friend sf::Packet& operator>>(sf::Packet& pckt, NewsFight& x);
 };
 #endif
