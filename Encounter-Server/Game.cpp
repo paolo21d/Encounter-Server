@@ -32,7 +32,6 @@ int Game::giveMeDirection(TcpSocket& socket)	//odbiera info o ruchu gracza
 	socket.receive(pseudoBuffer, sizeof(pseudoBuffer), received);
 
 	x = pseudoBuffer[0] - '0';
-	cout << x << endl;
 
 	return x;
 }
@@ -50,10 +49,8 @@ void Game::invalidGame(Hero& myHero, Location& currentLocation)
 				listener.listen(portNumber);
 				listener.accept(socket);				//połączenie przez socket 
 
-	cout << news << endl;
 	while(1){try{					//w pętli czekam na zgłoszenia klienta
 		direction = giveMeDirection(socket);		
-		news.reset();
 		switch(direction){			//sprawdzam, czy nie wychodzi poza mapę
 			case 0: newX = myHero.getX(); newY = myHero.getY()-1; break;
 			case 1: newX = myHero.getX()+1; newY = myHero.getY(); break;
@@ -61,13 +58,10 @@ void Game::invalidGame(Hero& myHero, Location& currentLocation)
 			case 3: newX = myHero.getX()-1; newY = myHero.getY(); break;
 			default: throw LeavingMap();
 		}
-		cout << "nowe wsp. " << newX << " " << newY << "stare: " << myHero.getX() << myHero.getY() << endl;//tylko wyświetla
 		if(newX >= areasCountX || newX < 0 || newY >= areasCountY || newY < 0)
 			throw LeavingMap();
 		if(currentLocation.ocupation[newX][newY] != nullptr) 		// wywołaj interaction dla zajmowanego pola
 			currentLocation.ocupation[newX][newY] -> interaction(myHero, news);
-		if(news.gameMode != EXPLORE)			//tylko wyświetla
-			cout << "coś się dzieje..." << endl;
 		if(news.gameMode == EXPLORE){			//zaktualizuj info o pozycji gracza
 			myHero.setX(newX);			//jeśli gameMode != EXPLORE, to próbował wejść na zajęte pole
 			news.positionX = newX;
@@ -90,6 +84,5 @@ void Game::invalidGame(Hero& myHero, Location& currentLocation)
 	   catch(LeavingMap){
 	   	cout << "Ziomek, nawet nie próbuj uciekać..." << endl;
 	   }
-	   cout << news << endl;	//tylko wyświetla
 	}//while
 }

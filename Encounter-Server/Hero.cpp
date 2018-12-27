@@ -38,8 +38,6 @@ void Hero::changeVitality(int x){
 
 void Hero::interaction(Hero& invader, NewsExplore& news){
 	news.gameMode = FIGHT;
-	news.firstFighter = this;
-	news.secondFighter = &invader;
 	return;
 }	
 

@@ -9,6 +9,6 @@ Nature::Nature() {
 Nature::~Nature() {
 }
 
-void Nature::interaction(Hero& invader, News& news){
+void Nature::interaction(Hero& invader, NewsExplore& news){
 	throw IllegalEntry();
 }

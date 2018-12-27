@@ -14,8 +14,6 @@ Mob::Mob(const Deck& myDeck_, int strength_, int vitality_, int intelligence_): 
 
 void Mob::interaction(Hero& invader, NewsExplore& news){
 	news.gameMode = FIGHT;
-	news.firstFighter = this;
-	news.secondFighter = &invader;
 	return;
 }	
 
