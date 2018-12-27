@@ -11,7 +11,7 @@
 class Game {
 	//dane calej gry
 	Map map;
-	News news;		//docelowo będą dwa News, po jednym na gracza
+	NewsExplore news;		//docelowo będą dwa News, po jednym na gracza
 
 	std::mutex mm;
 	//sf::TcpSocket tabsoc[2];

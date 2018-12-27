@@ -14,5 +14,5 @@ public:
 	Mob(const Deck& myDeck_, int strength_, int vitality_, int intelligence_);
 	~Mob();
 
-	virtual void interaction(Hero& invader, News& news);		//walcz
+	virtual void interaction(Hero& invader, NewsExplore& news);		//walcz
 };

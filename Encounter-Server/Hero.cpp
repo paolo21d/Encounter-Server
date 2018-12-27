@@ -36,7 +36,7 @@ void Hero::changeVitality(int x){
 	vitality += x;
 }
 
-void Hero::interaction(Hero& invader, News& news){
+void Hero::interaction(Hero& invader, NewsExplore& news){
 	news.gameMode = FIGHT;
 	news.firstFighter = this;
 	news.secondFighter = &invader;

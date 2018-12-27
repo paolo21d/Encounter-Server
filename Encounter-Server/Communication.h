@@ -33,6 +33,7 @@ public:
 	void sendData(int num, int socnum);
 	void receiveData(int num, int socnum);
 	void initialSend(int socnum);
+	void testSendImg();
 };
 
 #endif // !COMMUNICATION_H

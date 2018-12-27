@@ -22,6 +22,6 @@ public:
 	void changeStrength(int x);
 	void changeIntelligence(int x);
 	void changeVitality(int x);
-	virtual void interaction(Hero& invader, News& news);		//walcz
+	virtual void interaction(Hero& invader, NewsExplore& news);		//walcz
 };
 

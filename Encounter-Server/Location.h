@@ -2,6 +2,7 @@
 #ifndef  LOCATION_H
 #define LOCATION_H
 #include <string>
+#include <vector>
 #include "Object.h"
 
 extern const unsigned mapSizeX, mapSizeY;
@@ -11,6 +12,7 @@ const unsigned areasCountY = 4;
 
 class Location {
 	int id;
+	std::string backgroundSource;
 	//Object* ocupation[ mapSizeX/areaSizeX ][ mapSizeY/areaSizeY ];
 
 public:

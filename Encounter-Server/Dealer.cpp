@@ -12,7 +12,7 @@ Dealer::Dealer(Deck& soldCards_, double saleFactor_): saleFactor(saleFactor){
 Dealer::~Dealer() {
 }
 
-void Dealer::interaction(Hero& invader, News& news){
+void Dealer::interaction(Hero& invader, NewsExplore& news){
 	news.gameMode = DEAL;
 	news.dealerFactor = saleFactor;
 	//możliwe, że karty będą int'ami, więc nie ruszam tego na razie...

@@ -1,6 +1,7 @@
 #include "Communication.h"
 #include <SFML\Network.hpp>
-
+#include <fstream>
+#include <iostream>
 using namespace std;
 using namespace sf;
 
@@ -51,4 +52,15 @@ void Communication::startConnection() {
 	for (unsigned i = 0; i < th.size(); ++i) {
 		th[i].join();
 	}
+}
+
+void Communication::testSendImg() {
+	fstream file;
+	file.open("img.png");
+	if (!file.good()) {
+		cout << "Nie udalo sie otworzyc grafiki!" << endl;
+	}
+	//Packet packet;
+	//packet << file;
+
 }

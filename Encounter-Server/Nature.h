@@ -10,6 +10,6 @@ public:
 	Nature();
 	~Nature();
 	
-	virtual void interaction(Hero& invader, News& news); 		//nie pozwól wejść
+	virtual void interaction(Hero& invader, NewsExplore& news); 		//nie pozwól wejść
 };
 

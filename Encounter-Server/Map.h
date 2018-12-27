@@ -11,6 +11,7 @@ extern const unsigned areaSizeX, areaSizeY;
 using namespace std;
 class Map {
 	vector <Location> locations;
+	//std::vector <std::string> name;
 public:
 	Map();
 	~Map();

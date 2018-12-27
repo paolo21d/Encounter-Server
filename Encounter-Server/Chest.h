@@ -11,6 +11,6 @@ public:
 	Chest(Deck& myDeck_, int gold_);
 	~Chest();
 	
-	virtual void interaction(Hero& invader, News& news);		//odpal skrzynkę
+	virtual void interaction(Hero& invader, NewsExplore& news);		//odpal skrzynkę
 };
 

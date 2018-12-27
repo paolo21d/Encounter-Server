@@ -2,7 +2,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-class News;
+class NewsExplore;
 class Hero;
 
 //extern const unsigned mapSizeX, mapSizeY;		//ile pikseli ma lokacja
@@ -11,7 +11,7 @@ class Hero;
 class Object {	
 	int x, y;					//współrzędne pola, nie piksela; liczne od lewej góry;
 	int width;
-
+	std::string fileName;
 public:
 	Object();
 	~Object();
@@ -21,7 +21,7 @@ public:
 	void setX(int x_);
 	void setY(int y_);
 	Object(int x_, int y_, int width_ = 1);
-	virtual void interaction(Hero& invader, News& news) = 0; //Hero,Mob - walka, Dealer-handel, reszta - nic
+	virtual void interaction(Hero& invader, NewsExplore& news) = 0; //Hero,Mob - walka, Dealer-handel, reszta - nic
 };
 
 #endif // !OBJECT_H

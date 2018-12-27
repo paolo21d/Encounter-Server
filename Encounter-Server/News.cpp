@@ -2,7 +2,7 @@
 
 using namespace std;
 
-ostream& operator<<(ostream& os, const News& x) {
+/*ostream& operator<<(ostream& os, const NewsExpolore& x) {
 	if(x.gameMode == FIGHT)
 		os << "FIGHT " <<  x.firstFighter->getId() << " " << x.secondFighter->getId() << endl;
 	else if(x.gameMode == DEAL)
@@ -14,9 +14,9 @@ ostream& operator<<(ostream& os, const News& x) {
 	cout << endl << "zarobiłem: " << x.income << endl << "pozycja: " << x.positionX << x.positionY << endl << endl;
 	
 	return os;
-}
+}*/
 
-sf::Packet& operator<<(sf::Packet& pckt, const News& x){
+sf::Packet& operator<<(sf::Packet& pckt, const NewsExplore& x){
 	pckt << x.gameMode;
 	for(int i: {0, 1, 2, 3}) pckt << x.adjacent[i];
 	pckt << x.positionX << x.positionY;
@@ -25,7 +25,7 @@ sf::Packet& operator<<(sf::Packet& pckt, const News& x){
 }
 
 
-News::News(){
+NewsExplore::NewsExplore(){
 	gameMode = EXPLORE;
 	firstFighter = nullptr;
 	secondFighter = nullptr;
@@ -37,7 +37,7 @@ News::News(){
 	positionX = positionY = 0;
 }
 
-void News::reset(){
+void NewsExplore::reset(){
 	gameMode = EXPLORE;
 	firstFighter = nullptr;
 	secondFighter = nullptr;
