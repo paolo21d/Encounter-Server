@@ -13,7 +13,6 @@ Chest::~Chest() {
 void Chest::interaction(Hero& invader, NewsExplore& news){
 	invader.addGold(gold);
 	invader.addCards(myDeck);
-	news.income = gold;
 	gold = 0;
 	//wyczyść swoje karty...
 }

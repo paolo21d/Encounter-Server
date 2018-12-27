@@ -1,5 +1,5 @@
 #include "Communication.h"
-#include <SFML\Network.hpp>
+#include <SFML/Network.hpp>
 #include <fstream>
 #include <iostream>
 using namespace std;

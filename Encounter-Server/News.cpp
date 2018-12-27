@@ -27,17 +27,17 @@ sf::Packet& operator<<(sf::Packet& pckt, const NewsExplore& x){
 
 NewsExplore::NewsExplore(){
 	gameMode = EXPLORE;
-	firstFighter = nullptr;
+	/*firstFighter = nullptr;
 	secondFighter = nullptr;
 	dealerFactor = 0;	
-	income = 0;
+	income = 0;*/
 	for(int i:{1,2,3,4}){
 		adjacent[i] = 0;
 	}
 	positionX = positionY = 0;
 }
 
-void NewsExplore::reset(){
+/*void NewsExplore::reset(){
 	gameMode = EXPLORE;
 	firstFighter = nullptr;
 	secondFighter = nullptr;
@@ -45,4 +45,4 @@ void NewsExplore::reset(){
 	dealerFactor = 0;	
 	
 	income = 0;
-}
+}*/

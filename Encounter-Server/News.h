@@ -19,7 +19,7 @@ struct NewsExplore {
 	int adjacent[4];			//0-góra, 1-prawa, 2-dół, 3-lewa //0-mozna wejsc, 1-pole nieinteraktywne, 2-pole interaktywne
 	int positionX, positionY;
 	///
-	void reset();
+	//void reset();
 	NewsExplore();
 
 	//friend std::ostream& operator<<(std::ostream& os, const NewsExpolore& x);
