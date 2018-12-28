@@ -10,8 +10,8 @@
 enum Mode { EXPLORE, FIGHT, DEAL };
 
 struct NewsExplore {
-	NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0);
-
+	//NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0);
+	NewsExplore(Mode mode, int posX, int posY);
 	/*const Character* firstFighter; //przerzucić do klasy game
 	const Character* secondFighter;*/
 	//int income;
