@@ -18,6 +18,8 @@ struct NewsExplore {
 	Mode gameMode; //w obie strony
 	int adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //0-mozna wejsc, 1-pole nieinteraktywne, 2-pole interaktywne //wysylane z serwera do klienta
 	int positionX, positionY; //wysylane od klienta do serwera
+	int oponentLocationId;
+	int oponentX, oponentY;
 
 	friend std::ostream& operator<<(std::ostream& os, const NewsExplore& x);
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsExplore& x);
