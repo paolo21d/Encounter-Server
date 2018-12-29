@@ -66,6 +66,9 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
 	return pckt;
 }
 
+NewsExplore::NewExplore()
+{
+}
 
 NewsExplore::NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0){
 	gameMode = mode;

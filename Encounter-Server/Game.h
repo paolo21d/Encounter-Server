@@ -20,7 +20,6 @@ public:
 	~Game();
 
 	void invalidGame(Hero& myHero, Location& currentLocation);
-	//sf::TcpSocket startConnection(int pornNumber);  		//nie używam
 	int giveMeDirection(sf::TcpSocket& socket);
 	void game(int num, int socnum);
 	void sendGraphics();

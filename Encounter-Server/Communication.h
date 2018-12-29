@@ -29,10 +29,11 @@ public:
 
 	void srdata(int num, int socnum);
 
-	void startConnection();
 	void sendData(int num, int socnum);
 	void receiveData(int num, int socnum);
 	void initialSend(int socnum);
+	///////		testowe:
+	void startConnection();
 	void testSendImg();
 };
 
