@@ -16,3 +16,11 @@ Location::Location() {
 }
 Location::~Location() {
 }
+
+int Location::getId() const{
+	return id;
+}
+
+string Location::getSrc() const{
+	return backgroundSource;
+}

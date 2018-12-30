@@ -21,6 +21,8 @@ public:
 	//Location(string addres);
 	Location();
 	~Location();
+	int getId() const;
+	std::string getSrc() const ;
 
 };
 

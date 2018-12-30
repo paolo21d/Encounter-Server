@@ -11,6 +11,12 @@
 #include <SFML/Network.hpp>
 
 #include "Game.h"
+#include "Location.h"
+
+extern const unsigned mapSizeX, mapSizeY;
+extern const unsigned areaSizeX, areaSizeY;
+extern const unsigned areasCountX;
+extern const unsigned areasCountY;
 using namespace std;
 class Communication {
 	mutex mm;
@@ -28,6 +34,7 @@ public:
 	~Communication();
 
 	void srdata(int num, int socnum);
+	void sendMap(const Map& map, const int &num);
 
 	void startConnection();
 	void sendData(int num, int socnum);

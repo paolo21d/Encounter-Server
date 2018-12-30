@@ -25,6 +25,12 @@ public:
 	void setName(const string& n);
 	void setDescription(const string& desc);
 
+	int getId() const;
+	string getName() const;
+	string getDescription() const;
+	string getSrc() const;
+	unsigned getCostMana() const;
+
 	virtual void action(); //dla Health i Mana
 	virtual void action(Card* card);//przeciarzenie dla Monster, Removal i Buff
 };

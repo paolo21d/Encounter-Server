@@ -17,6 +17,14 @@ int Object::getY() const{
 	return y;
 }
 
+int Object::getId() const {
+	return id;
+}
+
+string Object::getFileName() const {
+	return fileName;
+}
+
 void Object::setX(int x_){
 	x = x_;
 }
