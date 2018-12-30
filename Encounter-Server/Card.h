@@ -5,10 +5,14 @@
 #include <string>
 using namespace std;
 class Card { 
+	int id;
+	string srcName;
+
 	string name;
 	string description;
 	unsigned costMana;
 	unsigned price;
+	
 	//uchwyt do Slider - obrazek
 	
 public:

@@ -2,7 +2,7 @@
 #include "Character.h"
 #include "Deck.h"
 #include "News.h"
-
+#include "Hero.h"
 class Dealer :	public Character {
 	Deck soldCards;
 	double saleFactor;

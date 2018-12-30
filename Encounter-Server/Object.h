@@ -3,9 +3,11 @@
 #define OBJECT_H
 
 #include <string>
+#include "Hero.h"
+#include "News.h"
 
-class NewsExplore;
-class Hero;
+//class NewsExplore;
+//class Hero;
 
 //extern const unsigned mapSizeX, mapSizeY;		//ile pikseli ma lokacja
 //extern const unsigned areaSizeX, areaSizeY;		//ile pikseli ma pole
