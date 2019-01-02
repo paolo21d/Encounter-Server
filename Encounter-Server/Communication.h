@@ -10,19 +10,13 @@
 #include <thread>
 #include <SFML/Network.hpp>
 
-#include "Game.h"
+
 using namespace std;
 class Communication {
-	mutex mm;
-	vector <sf::TcpSocket> vecsoc;
-	sf::TcpSocket tabsoc[2];
-	Game game;
 
-	//pola do komunikacji miedzy server-klient
-	bool readFromBuffSC1, readFromBuffSC2;
-	
-	sf::TcpListener listener;
-	vector<thread> th;
+	mutex mm;
+	sf::TcpSocket tabsoc[2];
+
 public:
 	Communication();
 	~Communication();
@@ -31,8 +25,10 @@ public:
 
 	void sendData(int num, int socnum);
 	void receiveData(int num, int socnum);
-	void initialSend(int socnum);
+	void sendMap(int socnum);
+	
 	///////		testowe:
+	
 	void startConnection();
 	void testSendImg();
 };

@@ -13,10 +13,17 @@ Game::Game() {
 Game::~Game() {
 }
 
-
-void Game::game(int num, int socnum) {
-	//tutaj jest calutka gra, wymiana informacji itp
+void Game::init()
+{
+	//wysyłanie mapy
 }
+
+void Game::game() 
+{
+	//gra
+}
+
+//////////////////		testowe:
 
 int Game::giveMeDirection(TcpSocket& socket)	//odbiera info o ruchu gracza
 {							//wysyła dane o grze
@@ -50,6 +57,7 @@ void Game::invalidGame(Hero& myHero, Location& currentLocation)
 				listener.accept(socket);				//połączenie przez socket 
 
 	while(1){try{					//w pętli czekam na zgłoszenia klienta
+		news.gameMode = EXPLORE;
 		direction = giveMeDirection(socket);		
 		switch(direction){			//sprawdzam, czy nie wychodzi poza mapę
 			case 0: newX = myHero.getX(); newY = myHero.getY()-1; break;

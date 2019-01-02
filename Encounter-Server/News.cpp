@@ -66,7 +66,7 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
 	return pckt;
 }
 
-NewsExplore::NewExplore()
+NewsExplore::NewsExplore()
 {
 }
 

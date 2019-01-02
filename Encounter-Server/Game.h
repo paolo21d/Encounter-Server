@@ -6,27 +6,27 @@
 #include <vector>
 #include "Map.h"
 #include "News.h"
+#include "Communication.h"
 #include <SFML/Network.hpp>
 
 class Game {
 	//dane calej gry
 	Map map;
+	Communication communication;
 	NewsExplore news;		//docelowo będą dwa News, po jednym na gracza
 
 	std::mutex mm;
-	//sf::TcpSocket tabsoc[2];
+
 public:
 	Game();
 	~Game();
 
+	void init(int socnum);
+	void game(int socnum);
+
+////////////	testowe:
 	void invalidGame(Hero& myHero, Location& currentLocation);
 	int giveMeDirection(sf::TcpSocket& socket);
-	void game(int num, int socnum);
-	void sendGraphics();
-	void sendG(unsigned socnum);
-	void startGame();
-	//void startG(unsigned socnum);
+	
 };
-
-
 

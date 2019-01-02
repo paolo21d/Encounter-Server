@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 #include "Object.h"
 #include "Nature.h"
 #include "Character.h"
@@ -10,9 +11,11 @@
 #include "Card.h"
 #include "Deck.h"
 #include "Game.h"
+#include <SFML/System>
 
 using namespace std;
-
+using namespace sf;
+/*
 NewsExplore news;
 int char_id = 0;
 const unsigned mapSizeX = 100, mapSizeY = 100;
@@ -45,4 +48,31 @@ int main()
 	location.ocupation[0][2] = &precious;
 	
 	game.invalidGame(elfhells, location);
+}
+*/
+
+int main()
+{
+	Game game;
+
+	int portNumber = 2003;
+		
+	listener.listen(portNumber);
+	for (unsigned i = 0; i < 2; ++i) {
+		listener.accept(game.communication.tabsoc[i]);
+		cout << "Nawiazano polaczenie z klientem: " << i << endl;
+	}
+
+	thread uno(game.init(0));
+	thread due(game.init(1));
+
+	uno.join();
+	due.join();
+
+	thread uno(game.game(0));
+	thread.due(game.game(1));
+
+	uno.join();
+	due.join();
+
 }
