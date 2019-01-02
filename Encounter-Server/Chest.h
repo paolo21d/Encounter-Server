@@ -4,7 +4,7 @@
 #include "News.h"
 
 class Chest :	public Object {
-	Deck myDeck;				//kart
+	Deck myDeck;				//karty
 	int gold;				//pieniądze w skrzyni	
 public:
 	Chest();

@@ -2,6 +2,7 @@
 #ifndef MAP_H
 #define MAP_H
 #include "Location.h"
+#include "Card.h"
 #include <vector>
 //#include <SFML\Graphics.hpp>
 
@@ -10,9 +11,11 @@ extern const unsigned areaSizeX, areaSizeY;
 
 using namespace std;
 class Map {
-	vector <Location> locations;
+	//vector <Location> locations;
 	//std::vector <std::string> name;
 public:
+	vector <Location> locations;
+	vector <Card*> allCards;
 	Map();
 	~Map();
 
