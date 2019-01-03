@@ -2,22 +2,21 @@
 #define NEWS_H
 #include <iostream>
 #include <fstream>
-#include "Character.h"
 #include "Deck.h"
 #include "SFML/Network.hpp"
 
 
 enum Mode { EXPLORE, FIGHT, DEAL };
+enum areaType { EMPTY, IMPASSABLE, INTERACTING};
 
-struct NewsExplore {
-	//NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0);
+
+class NewsExplore{
+public:
 	NewsExplore(Mode mode, int posX, int posY);
 	NewsExplore();
-	/*const Character* firstFighter; //przerzucić do klasy game
-	const Character* secondFighter;*/
-	//int income;
-	Mode gameMode; //w obie strony
-	int adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //0-mozna wejsc, 1-pole nieinteraktywne, 2-pole interaktywne //wysylane z serwera do klienta
+
+	Mode gameMode;
+	areaType adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //wysylane z serwera do klienta
 	int positionX, positionY; //wysylane od klienta do serwera
 	int oponentLocationId;
 	int oponentX, oponentY;
@@ -27,19 +26,27 @@ struct NewsExplore {
 	friend sf::Packet& operator >> (sf::Packet& pckt, NewsExplore& x);
 };
 
-struct NewsDeal {
+
+class NewsDeal{
+public:
+	NewsDeal();
+
 	Mode gameMode;
+	bool accept;
+	int areaToGoBackAfterDealX, areaToGoBackAfterDealY;
 	double dealerFactor;
-	//Deck cardsForSale; //mozliwe ze zamienic na vector intow czyli id kart
 	std::vector <int> cardsId;
+	int income;		// == 0 jeśli na polu jest handlarz; > 0 jeśli jest skrzynka (i oznacza ilość złota w skrzynce)
 
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsDeal& x);
 	friend sf::Packet& operator>>(sf::Packet& pckt, NewsDeal& x);
 };
 
-struct NewsFight {
-	Mode gameMode;
+class NewsFight{
+public:
+	NewsFight();
 
+	Mode gameMode;
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsFight& x);
 	friend sf::Packet& operator>>(sf::Packet& pckt, NewsFight& x);
 };

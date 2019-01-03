@@ -2,6 +2,32 @@
 
 using namespace std;
 
+////////////////////// KONSTRUKTORY
+
+NewsExplore::NewsExplore()
+{
+}
+
+NewsDeal::NewsDeal()
+{
+}
+
+NewsFight::NewsFight()
+{
+}
+
+NewsExplore::NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0){
+	gameMode = mode;
+	for(int i:{1,2,3,4}) {
+		adjacent[i] = 0;
+	}
+	//positionX = positionY = 0;
+	positionX = posX;
+	positionY = posY;
+}
+
+//////////////////////// OPERATORY
+
 ostream& operator<<(ostream& os, const NewsExplore& x) {
 	if(x.gameMode == FIGHT)
 		os << "FIGHT " /*<<  x.firstFighter->getId() << " " << x.secondFighter->getId()*/ << endl;
@@ -11,7 +37,7 @@ ostream& operator<<(ostream& os, const NewsExplore& x) {
 		os << "EXPLO" << endl;
 	cout << "sądziedzi: ";
 	for(int i: {0, 1, 2, 3}) cout << " " << x.adjacent[i];
-	cout << endl/* << "zarobiłem: " << x.income << endl*/ << "pozycja: " << x.positionX << x.positionY << endl << endl;
+	cout << endl << "pozycja: " << x.positionX << x.positionY << endl << endl;
 	
 	return os;
 }
@@ -26,23 +52,14 @@ sf::Packet& operator<<(sf::Packet& pckt, const NewsExplore& x){
 	return pckt;
 }
 
-sf::Packet & operator >> (sf::Packet & pckt, NewsExplore & x) {
-	int mode;
-	pckt >> mode;
-	x.gameMode = static_cast <Mode> (mode);
-	/*if (mode == 0) {
-		x.gameMode = EXPLORE;
-	} else if (mode == 1) {
-		x.gameMode = FIGHT;
-	} else if (mode == 2) {
-		x.gameMode = DEAL;
-	}*/
-	for (int i : {0, 1, 2, 3}) pckt >> x.adjacent[i];
-	pckt >> x.positionX;
-	pckt >> x.positionY;
-	pckt >> x.oponentLocationId;
-	pckt >> x.oponentX;
-	pckt >> x.oponentY;
+sf::Packet & operator >> (sf::Packet & pckt, NewsExplore & x) {			
+	int temp;					 
+	pckt >> temp;							 //nowa formuła obsługi game sama ustawia gameMode
+	for (int i : {0, 1, 2, 3})
+		pckt >> temp;
+	x.adjacent[i] = static_cast<areaType>(temp);
+	pckt >> x.positionX >> x.positionY;
+	pckt >> x.oponentLocationId >> x.oponentX >> x.oponentY;
 	return pckt;
 }
 
@@ -64,18 +81,4 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
 sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
 	// TODO: insert return statement here
 	return pckt;
-}
-
-NewsExplore::NewsExplore()
-{
-}
-
-NewsExplore::NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0){
-	gameMode = mode;
-	for(int i:{1,2,3,4}) {
-		adjacent[i] = 0;
-	}
-	//positionX = positionY = 0;
-	positionX = posX;
-	positionY = posY;
 }
