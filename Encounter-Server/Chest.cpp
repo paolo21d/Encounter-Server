@@ -10,9 +10,17 @@ Chest::Chest(Deck& myDeck_, int gold_): gold(gold_){
 Chest::~Chest() {
 }
 
-void Chest::interaction(Hero& invader, NewsExplore& news){
-	invader.addGold(gold);
-	invader.addCards(myDeck);
-	gold = 0;
-	//wyczyść swoje karty...
+int Chest::freeMoney()
+{
+	return gold;
 }
+
+Mode Chest::interaction(){
+	return DEAL;
+}
+
+areaType Chest::checkAdjacent()
+{
+	return INTERACTING;
+}
+

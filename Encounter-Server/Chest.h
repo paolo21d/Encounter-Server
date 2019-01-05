@@ -4,6 +4,7 @@
 #include "News.h"
 
 class Chest :	public Object {
+	friend class Game;
 	Deck myDeck;				//karty
 	int gold;				//pieniądze w skrzyni	
 public:
@@ -11,6 +12,9 @@ public:
 	Chest(Deck& myDeck_, int gold_);
 	~Chest();
 	
-	virtual void interaction(Hero& invader, NewsExplore& news);		//odpal skrzynkę
+	virtual int freeMoney();
+	virtual Mode interaction();		//odpal skrzynkę
+	virtual areaType checkAdjacent();
+
 };
 

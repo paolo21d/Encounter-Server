@@ -16,11 +16,11 @@ class Location {
 	//Object* ocupation[ mapSizeX/areaSizeX ][ mapSizeY/areaSizeY ];
 
 public:
-	Object* ocupation[areasCountX][areasCountY];
+	Object* occupation[areasCountX][areasCountY];
 
 	//Location(string addres);
 	Location();
-	~Location();
+	~Location(); // usuwać obiekty z occupation !!!
 	int getId() const;
 	std::string getSrc() const ;
 

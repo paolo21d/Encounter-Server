@@ -9,13 +9,18 @@
 enum Mode { EXPLORE, FIGHT, DEAL };
 enum areaType { EMPTY, IMPASSABLE, INTERACTING};
 
+class News {
+public:
+	Mode gameMode;
 
-class NewsExplore{
+	News();
+};
+
+class NewsExplore: public News {
 public:
 	NewsExplore(Mode mode, int posX, int posY);
 	NewsExplore();
 
-	Mode gameMode;
 	areaType adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //wysylane z serwera do klienta
 	int positionX, positionY; //wysylane od klienta do serwera
 	int oponentLocationId;
@@ -26,12 +31,10 @@ public:
 	friend sf::Packet& operator >> (sf::Packet& pckt, NewsExplore& x);
 };
 
-
-class NewsDeal{
+class NewsDeal: public News {
 public:
 	NewsDeal();
 
-	Mode gameMode;
 	bool accept;
 	int areaToGoBackAfterDealX, areaToGoBackAfterDealY;
 	double dealerFactor;
@@ -42,11 +45,10 @@ public:
 	friend sf::Packet& operator>>(sf::Packet& pckt, NewsDeal& x);
 };
 
-class NewsFight{
+class NewsFight: public News {
 public:
 	NewsFight();
 
-	Mode gameMode;
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsFight& x);
 	friend sf::Packet& operator>>(sf::Packet& pckt, NewsFight& x);
 };

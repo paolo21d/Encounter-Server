@@ -4,6 +4,10 @@ using namespace std;
 
 ////////////////////// KONSTRUKTORY
 
+News::News()
+{	
+}
+
 NewsExplore::NewsExplore()
 {
 }
@@ -19,7 +23,7 @@ NewsFight::NewsFight()
 NewsExplore::NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0){
 	gameMode = mode;
 	for(int i:{1,2,3,4}) {
-		adjacent[i] = 0;
+		adjacent[i] = EMPTY;
 	}
 	//positionX = positionY = 0;
 	positionX = posX;
@@ -56,8 +60,10 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsExplore & x) {
 	int temp;					 
 	pckt >> temp;							 //nowa formuła obsługi game sama ustawia gameMode
 	for (int i : {0, 1, 2, 3})
+	{
 		pckt >> temp;
-	x.adjacent[i] = static_cast<areaType>(temp);
+		x.adjacent[i] = static_cast<areaType>(temp);
+	}
 	pckt >> x.positionX >> x.positionY;
 	pckt >> x.oponentLocationId >> x.oponentX >> x.oponentY;
 	return pckt;

@@ -1,5 +1,4 @@
 #include "Dealer.h"
-#include "News.h"
 
 
 Dealer::Dealer() {
@@ -12,7 +11,21 @@ Dealer::Dealer(Deck& soldCards_, double saleFactor_): saleFactor(saleFactor){
 Dealer::~Dealer() {
 }
 
-void Dealer::interaction(Hero& invader, NewsExplore& news){
-	news.gameMode = DEAL;
+int Dealer::freeMoney()
+{
+	return 0;
+}
+
+Mode Dealer::interaction()
+{
+	return DEAL;
 	//możliwe, że karty będą int'ami, więc nie ruszam tego na razie...
+}
+
+void Dealer::removeCards(std::vector<int> v)
+{
+	for(int i: v)
+	{
+		soldCards.removeCard(i);
+	}
 }

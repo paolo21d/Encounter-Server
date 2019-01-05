@@ -5,6 +5,7 @@
 #include <string>
 using namespace std;
 class Card { 
+	friend class Game;
 	int id;
 	string srcName;
 
@@ -30,6 +31,7 @@ public:
 	string getDescription() const;
 	string getSrc() const;
 	unsigned getCostMana() const;
+	unsigned getPrice() const; 
 
 	virtual void action(); //dla Health i Mana
 	virtual void action(Card* card);//przeciarzenie dla Monster, Removal i Buff

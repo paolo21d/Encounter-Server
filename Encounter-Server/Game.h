@@ -7,24 +7,50 @@
 #include "Map.h"
 #include "News.h"
 #include "Communication.h"
+#include "Location.h"
+#include "Hero.h"
 #include <SFML/Network.hpp>
 
+extern const unsigned mapSizeX, mapSizeY;
+extern const unsigned areaSizeX, areaSizeY;
+extern const unsigned areasX, areasY; 
+const int MANYMANY = 1000000;
+
+
 class Game {
-	//dane calej gry
+	//////////////////////////////
+	////////////////////////////// UWAGA - JEST PUBLIcZNE WSZYSTKO
+	//////////////////////////////
+public:	
+	// dopisać wszędzie korzystanie z mutexa !!!
+	std::mutex mm;
+	
 	Map map;
 	Communication communication;
-	NewsExplore news;		//docelowo będą dwa News, po jednym na gracza
+	Location *currentLocation[2];
 
-	std::mutex mm;
+	News* news[2];
+	NewsExplore newsE[2];		//docelowo będą dwa News, po jednym na gracza
+	NewsDeal newsD[2];
+	NewsFight newsF[2];
 
-public:
+	Hero* player[2];
+	int locationId[2];
+	int playerX[2];
+	int playerY[2];
+//public:
 	Game();
 	~Game();
 
 	void init(int socnum);
 	void game(int socnum);
 
+	void explore(int id);
+	void fight(int id);
+	void deal(int id);
+
 ////////////	testowe:
+
 	void invalidGame(Hero& myHero, Location& currentLocation);
 	int giveMeDirection(sf::TcpSocket& socket);
 	

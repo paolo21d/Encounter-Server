@@ -6,13 +6,15 @@
 #include <vector>
 using namespace std;
 class Deck {
-	vector<Card> deck;
+	friend class Game;
+	vector<Card*> deck;
 
 public:
 	Deck();
 	~Deck();
 
-	void addCard(const Card& card);
+	void addCard(const int cardNum);
+	void removeCard(const int cardNum);
 
 };
 

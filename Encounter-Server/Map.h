@@ -15,7 +15,7 @@ class Map {
 	//std::vector <std::string> name;
 public:
 	vector <Location> locations;
-	vector <Card*> allCards;
+	static vector <Card*> allCards;
 	Map();
 	~Map();
 

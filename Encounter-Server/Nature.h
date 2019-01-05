@@ -10,6 +10,8 @@ public:
 	Nature();
 	~Nature();
 	
-	virtual void interaction(Hero& invader, NewsExplore& news); 		//nie pozwól wejść
+	virtual Mode interaction();
+	virtual areaType checkAdjacent();
+
 };
 

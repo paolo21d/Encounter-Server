@@ -18,8 +18,15 @@ void Hero::removeGold(int spentGold){
 	gold -= spentGold;
 }	
 
-void Hero::addCards(const Deck& newDeck){
-	//myDeck.extend(newDeck);
+int Hero::getGold() {
+	return gold;
+}
+
+void Hero::addCards(std::vector<int> v){
+	for(int i: v)
+	{
+		myDeck.addCard(i);
+	}
 }
 
 void Hero::removeCards(const Deck& lostCards){
@@ -36,8 +43,7 @@ void Hero::changeVitality(int x){
 	vitality += x;
 }
 
-void Hero::interaction(Hero& invader, NewsExplore& news){
-	news.gameMode = FIGHT;
-	return;
+Mode Hero::interaction(){
+	return FIGHT;
 }	
 

@@ -13,3 +13,8 @@ Character::~Character() {
 int Character::getId() const{
 	return id;
 }
+
+areaType Character::checkAdjacent()
+{
+	return INTERACTING;
+}

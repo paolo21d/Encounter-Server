@@ -9,6 +9,13 @@ Nature::Nature() {
 Nature::~Nature() {
 }
 
-void Nature::interaction(Hero& invader, NewsExplore& news){
-	throw IllegalEntry();
+Mode Nature::interaction(){
+	return EXPLORE;
+	// docelowo throw IllegalEntry();
 }
+
+areaType Nature::checkAdjacent()
+{
+	return IMPASSABLE;
+}
+

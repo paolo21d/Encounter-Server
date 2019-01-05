@@ -36,3 +36,7 @@ string Card::getSrc() const {
 unsigned Card::getCostMana() const {
 	return costMana;
 }
+
+unsigned Card::getPrice() const {
+	return price;
+}
