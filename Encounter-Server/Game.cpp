@@ -59,6 +59,10 @@ void Game::game(int id)
 
 void Game::explore(int id)
 {
+	if(gameEndsWinnerIs != nullptr)
+	{
+
+	}
 	//sprawdzić, czy przeciwnik się przypadkiem nie bije
 
 	if(currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] != nullptr)	// ustawiam gameMode w newsE
@@ -117,19 +121,57 @@ void Game::explore(int id)
 
 void Game::fight(int id)
 {
+	Packet pcktRcv, pcktSnd;
+	int v[2], s[2], i[2];
+		s[0] = newsF[id].strength[0] = player[id]->strength;
+		v[0] = newsF[id].vitality[0] = player[id]->vitality;
+		i[0] = newsF[id].intelligence[0] = player[id]->intelligence;
+		s[1] = newsF[id].strength[1] = enemy->strength;
+		v[1] = newsF[id].vitality[1] = enemy->vitality;
+		i[1] = newsF[id].intelligence[1] = enemy->intelligence;
 	// odebrany przed chwilą newsF jest pusty
 	
 	Character* enemy = (Character*) currentLocation[id]->occupation[playerX[id]][playerY[id]];
-	//while( obaj żyją )
-	//		wyślij dane przeciwnika
+	while( enemy->vitality != 0 && player[id]->vitality != 0 )
+	{
+	//		wyślij dane moje 
+		newsF[id].strength[0] = s[0];		
+		newsF[id].vitality[0] = v[0];			
+		newsF[id].intelligence[0] = i[0];	
+		for(Card* i: player[id]->myDeck.deck)
+		{
+			newsF[id].cardsId[0].push_back(i->getId());
+	//		i przeciwnika
+		newsF[id].strength[1] = s[1];	
+		newsF[id].vitality[1] = v[1];	
+		newsF[id].intelligence[1] = i[1];
+		for(Card* i: enemy->myDeck.deck)
+			newsF[id].cardsId[1].push_back(i->getId());
+
+		pcktSnd << newsF[id];
+		communication.tabsoc[id].send(pcktSnd);
 	//		odbierz wybraną kartę
-	//		zaktualizuj dane graczy
-	//
+		communication.tabsoc[id].receive(pcktRcv);
+		pcktRcv >> newsF[id];
+
+	//		usuń użytą kartę, zaktualizuj i, v, s
+
+	}
 	// ustaw w newsF gameMode == EXPLORE i info kto wygrał (nie wysyłaj)
 	// usuń przegranego z gry
-	
+	newsF[id].gameMode = EXPLORE;
+	if(enemy->vitality == 0)
+	{
+		newsF[id].youWon = true;
+		delete enemy;
+		currentLocation[id]->occupation[playerX[id]][playerY[id]] = player[id];
+	}
+	else
+	{
+		newsF[id].youWon = false;
+		gameEndsWinnerIs = player[1 - id];
+	}
 	// wygrany zajmuje dane pole
-	currentLocation[id]->occupation[playerX[id]][playerY[id]] = player[id];
 }
 	
 void Game::deal(int id)
@@ -138,7 +180,8 @@ void Game::deal(int id)
 	int areaToGoBackAfterDealY = newsD[id].areaToGoBackAfterDealY;
 	bool dealerOrChest;		// 0 => dealer; 1 => chest
 	Packet pcktSnd, pcktRcv;
-	
+	int temp = 0;
+
 	// odebrany przed chwilą newsD jest pusty
 	Object* something = currentLocation[id]->occupation[playerX[id]][playerY[id]]; // może to być też skrzynka
 	newsD[id].income = something->freeMoney();
@@ -149,14 +192,22 @@ void Game::deal(int id)
 		Chest* chest = (Chest*) something;
 		newsD[id].dealerFactor = INFINITY;
 		for(Card* x: chest->myDeck.deck)
+		{
 			newsD[id].cardsId.push_back(x->getId());
+			++temp;
+		}
+		newsD[id].cardAmount = temp;
 	}
 	else
 	{
 		Dealer* dealer = (Dealer*) something;
 		newsD[id].dealerFactor = dealer->saleFactor;
 		for(Card* x: dealer->soldCards.deck)
+		{
 			newsD[id].cardsId.push_back(x->getId());
+			++temp;
+		}
+		newsD[id].cardAmount = temp;
 	}
 	
 	// wyślij dane handlarza

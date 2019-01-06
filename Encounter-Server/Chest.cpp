@@ -3,11 +3,13 @@
 
 Chest::Chest() {
 }
+
 Chest::Chest(Deck& myDeck_, int gold_): gold(gold_){
 	myDeck = myDeck_;
 }
 
 Chest::~Chest() {
+	
 }
 
 int Chest::freeMoney()

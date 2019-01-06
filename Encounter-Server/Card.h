@@ -13,9 +13,7 @@ class Card {
 	string description;
 	unsigned costMana;
 	unsigned price;
-	
-	//uchwyt do Slider - obrazek
-	
+		
 public:
 	Card();
 	Card(const string &n, const unsigned& dmg, const unsigned& costmana);
@@ -33,8 +31,8 @@ public:
 	unsigned getCostMana() const;
 	unsigned getPrice() const; 
 
-	virtual void action(); //dla Health i Mana
-	virtual void action(Card* card);//przeciarzenie dla Monster, Removal i Buff
+	virtual void action(); 		//dla Health i Mana
+	virtual void action(Card* card);	//przeciarzenie dla Monster, Removal i Buff
 };
 
 #endif // !CARD_H

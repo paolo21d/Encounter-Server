@@ -5,6 +5,7 @@
 
 class Chest :	public Object {
 	friend class Game;
+	
 	Deck myDeck;				//karty
 	int gold;				//pieniądze w skrzyni	
 public:

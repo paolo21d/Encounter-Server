@@ -11,15 +11,18 @@ extern const unsigned areaSizeX, areaSizeY;
 
 using namespace std;
 class Map {
-	//vector <Location> locations;
-	//std::vector <std::string> name;
-public:
+	friend class Game;
+	friend class Communication;
+	
 	vector <Location> locations;
 	static vector <Card*> allCards;
+	
+public:
+
 	Map();
 	~Map();
 
-	void receiveMap(); //pobiera pliki mapy- grafiki lokacji, skrzynek, handlarzy, kart i zapisuje to w folderze na komputerze, ale z kazdym uruchomieniem aplikacji usuwa ten folder i pobiera od nowa te grafiki
+	//void receiveMap(); // pobiera pliki mapy- grafiki lokacji, skrzynek, handlarzy, kart i zapisuje to w folderze na komputerze, ale z kazdym uruchomieniem aplikacji usuwa ten folder i pobiera od nowa te grafiki
 };
 
 #endif // !MAP_H

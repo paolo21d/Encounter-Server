@@ -38,6 +38,8 @@ public:
 	int locationId[2];
 	int playerX[2];
 	int playerY[2];
+
+	Hero* gameEndsWinnerIs;
 //public:
 	Game();
 	~Game();

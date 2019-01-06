@@ -9,6 +9,7 @@ Dealer::Dealer(Deck& soldCards_, double saleFactor_): saleFactor(saleFactor){
 }
 
 Dealer::~Dealer() {
+	
 }
 
 int Dealer::freeMoney()

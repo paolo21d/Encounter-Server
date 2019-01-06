@@ -2,6 +2,7 @@
 #define NEWS_H
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "Deck.h"
 #include "SFML/Network.hpp"
 
@@ -38,6 +39,7 @@ public:
 	bool accept;
 	int areaToGoBackAfterDealX, areaToGoBackAfterDealY;
 	double dealerFactor;
+	int cardAmount;
 	std::vector <int> cardsId;
 	int income;		// == 0 jeśli na polu jest handlarz; > 0 jeśli jest skrzynka (i oznacza ilość złota w skrzynce)
 
@@ -47,8 +49,16 @@ public:
 
 class NewsFight: public News {
 public:
-	NewsFight();
+	// [0] - moje; [1] - przeciwnika
+	bool youWon;
+	int strength[2];
+	int intelligence[2];
+	int vitality[2];
+	int cardAmount[2];
+	std::vector<int> cardsId[2];	// posiadane karty
+	int chosenCard;
 
+	NewsFight();
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsFight& x);
 	friend sf::Packet& operator>>(sf::Packet& pckt, NewsFight& x);
 };

@@ -31,7 +31,7 @@ NewsExplore::NewsExplore(Mode mode = EXPLORE, int posX = 0, int posY = 0){
 }
 
 //////////////////////// OPERATORY
-
+// trzeb je trochę pozmieniać żeby nie czytać zawsze wszystkiego
 ostream& operator<<(ostream& os, const NewsExplore& x) {
 	if(x.gameMode == FIGHT)
 		os << "FIGHT " /*<<  x.firstFighter->getId() << " " << x.secondFighter->getId()*/ << endl;
@@ -70,21 +70,51 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsExplore & x) {
 }
 
 sf::Packet & operator<<(sf::Packet & pckt, const NewsDeal & x) {
-	// TODO: insert return statement here
+	pckt << x.gameMode;
+	pckt << x.accept << x.areaToGoBackAfterDealX << x.areaToGoBackAfterDealY << x.dealerFactor << x.cardAmount;
+	for(int i; i < x.cardAmount; ++i)
+		pckt << x.cardsId[i];
+	pckt << x.income;
+	
 	return pckt;
 }
 
 sf::Packet & operator >> (sf::Packet & pckt, NewsDeal & x) {
-	// TODO: insert return statement here
+	int temp;
+	pckt >> temp;
+	x.gameMode = static_cast<Mode>(temp);
+	pckt >> x.accept >> x.areaToGoBackAfterDealX >> x.areaToGoBackAfterDealY >> x.dealerFactor >> x.cardAmount;
+	for(int i; i < x.cardAmount; ++i)
+		pckt >> x.cardsId[i];
+	pckt >> income;
+	
 	return pckt;
 }
 
 sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
-	// TODO: insert return statement here
+	pckt << x.youWon;
+	pckt << x.strength[0] << x.strength[1];
+	pckt << x.intelligence[0] << x.intelligence[1];
+	pckt << x.vitality[0] << x.vitality[1];
+	pckt << static_cast<int>(x.cardsId[0].size()) << static_cast<int>(x.cardsId[1].size());
+	for(int i: {0, 1})
+		for(int j; j < x.cardAmount[i]; ++j)
+			pckt << x.cardsId[i][j];
+	pckt << chosenCard;
+	
 	return pckt;
 }
 
 sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
-	// TODO: insert return statement here
+	pckt >> x.youWon;
+	pckt >> x.strength[0] << x.strength[1];
+	pckt >> x.intelligence[0] << x.intelligence[1];
+	pckt >> x.vitality[0] << x.vitality[1];
+	pckt >> x.cardAmount[0] << x.cardAmount[1];
+	for(int i: {0, 1})
+		for(int j; j < x.cardAmount[i]; ++j)
+			pckt >> x.cardsId[i][j];
+	pckt >> chosenCard;
+	
 	return pckt;
 }

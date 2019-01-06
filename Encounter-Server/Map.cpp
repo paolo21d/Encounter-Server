@@ -6,7 +6,3 @@ Map::Map() {
 
 Map::~Map() {
 }
-
-void Map::receiveMap() {
-	
-}
