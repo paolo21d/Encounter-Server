@@ -64,7 +64,7 @@ void Communication::sendMap(const Map& map, const int num) {
 	//przeslanie kart
 	packet << static_cast<int>(map.allCards.size());
 	for (int i = 0; i < map.allCards.size(); ++i) {
-		packet << map.allCards[i]->getId() << map.allCards[i]->getSrc() << map.allCards[i]->getName() << map.allCards[i]->getDescription() << map.allCards[i]->getCostMana();
+		packet << map.allCards[i]->getId() << map.allCards[i]->getSrc() << map.allCards[i]->getName() << map.allCards[i]->getDescription() << map.allCards[i]->getCostMana() << map.allCards[i]->getDamage() << map.allCards[i]->getCostGold();
 	}
 	tabsoc[num].send(packet);
 }

@@ -13,6 +13,7 @@ class Card {
 	string description;
 	unsigned costMana;
 	unsigned price;
+	unsigned damage; // to s¹ punkty obrazen zadawane
 	
 	//uchwyt do Slider - obrazek
 	
@@ -32,6 +33,8 @@ public:
 	string getSrc() const;
 	unsigned getCostMana() const;
 	unsigned getPrice() const; 
+	unsigned getCostGold() const;
+	unsigned getDamage() const;
 
 	virtual void action(); //dla Health i Mana
 	virtual void action(Card* card);//przeciarzenie dla Monster, Removal i Buff
