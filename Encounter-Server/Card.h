@@ -14,6 +14,10 @@ class Card {
 	unsigned costMana;
 	unsigned price;
 		
+	unsigned damage; // to s� punkty obrazen zadawane
+	
+	//uchwyt do Slider - obrazek
+
 public:
 	Card();
 	Card(const string &n, const unsigned& dmg, const unsigned& costmana);
@@ -30,6 +34,8 @@ public:
 	string getSrc() const;
 	unsigned getCostMana() const;
 	unsigned getPrice() const; 
+	unsigned getCostGold() const;
+	unsigned getDamage() const;
 
 	virtual void action(); 		//dla Health i Mana
 	virtual void action(Card* card);	//przeciarzenie dla Monster, Removal i Buff

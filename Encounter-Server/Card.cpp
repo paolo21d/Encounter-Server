@@ -40,3 +40,11 @@ unsigned Card::getCostMana() const {
 unsigned Card::getPrice() const {
 	return price;
 }
+
+unsigned Card::getCostGold() const {
+	return price;
+}
+
+unsigned Card::getDamage() const {
+	return damage;
+}
