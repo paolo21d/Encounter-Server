@@ -41,6 +41,7 @@ public:
 	double dealerFactor;
 	int cardAmount;
 	std::vector <int> cardsId;
+	int boostStr, boostVit, boostInt;
 	int income;		// == 0 jeśli na polu jest handlarz; > 0 jeśli jest skrzynka (i oznacza ilość złota w skrzynce)
 
 	friend sf::Packet& operator<<(sf::Packet& pckt, const NewsDeal& x);

@@ -18,7 +18,7 @@ void Deck::addCard(const int cardNum)
     }
 }
 
-void Deck::removeCard(const int cardNum)
+void Deck::removeCard(const int cardNum)    // z tym coś chyba jest nie tak...
 {
     int x = 0;
     for(Card* i: deck)

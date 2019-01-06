@@ -15,9 +15,9 @@ class Map {
 	friend class Communication;
 	
 	vector <Location> locations;
-	static vector <Card*> allCards;
 	
 public:
+	static vector <Card*> allCards;
 
 	Map();
 	~Map();

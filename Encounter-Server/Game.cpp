@@ -61,7 +61,7 @@ void Game::explore(int id)
 {
 	if(gameEndsWinnerIs != nullptr)
 	{
-
+		
 	}
 	//sprawdzić, czy przeciwnik się przypadkiem nie bije
 
@@ -122,29 +122,27 @@ void Game::explore(int id)
 void Game::fight(int id)
 {
 	Packet pcktRcv, pcktSnd;
-	int v[2], s[2], i[2];
-		s[0] = newsF[id].strength[0] = player[id]->strength;
-		v[0] = newsF[id].vitality[0] = player[id]->vitality;
-		i[0] = newsF[id].intelligence[0] = player[id]->intelligence;
-		s[1] = newsF[id].strength[1] = enemy->strength;
-		v[1] = newsF[id].vitality[1] = enemy->vitality;
-		i[1] = newsF[id].intelligence[1] = enemy->intelligence;
+	int v, s, i;
+	Character* enemy = (Character*) currentLocation[id]->occupation[playerX[id]][playerY[id]];
+
+		s = newsF[id].strength[0] = player[id]->strength;
+		v = newsF[id].vitality[0] = player[id]->vitality;
+		i = newsF[id].intelligence[0] = player[id]->intelligence;
+
 	// odebrany przed chwilą newsF jest pusty
 	
-	Character* enemy = (Character*) currentLocation[id]->occupation[playerX[id]][playerY[id]];
 	while( enemy->vitality != 0 && player[id]->vitality != 0 )
 	{
 	//		wyślij dane moje 
-		newsF[id].strength[0] = s[0];		
-		newsF[id].vitality[0] = v[0];			
-		newsF[id].intelligence[0] = i[0];	
+		newsF[id].strength[0] = player[id]->strength;		
+		newsF[id].vitality[0] = player[id]->vitality;			
+		newsF[id].intelligence[0] = player[id]->intelligence;
 		for(Card* i: player[id]->myDeck.deck)
-		{
 			newsF[id].cardsId[0].push_back(i->getId());
 	//		i przeciwnika
-		newsF[id].strength[1] = s[1];	
-		newsF[id].vitality[1] = v[1];	
-		newsF[id].intelligence[1] = i[1];
+		newsF[id].strength[1] = enemy->strength;	
+		newsF[id].vitality[1] = enemy->vitality;	
+		newsF[id].intelligence[1] = enemy->intelligence;
 		for(Card* i: enemy->myDeck.deck)
 			newsF[id].cardsId[1].push_back(i->getId());
 
@@ -155,6 +153,14 @@ void Game::fight(int id)
 		pcktRcv >> newsF[id];
 
 	//		usuń użytą kartę, zaktualizuj i, v, s
+		for(Card* j: player[id]->myDeck.deck)
+			if(j->getId() == newsF[id].chosenCard)
+			{
+				player[id]->intelligence -= j->getCostMana();
+				enemy->intelligence -= j->getDamage();
+			}
+		player[id]->myDeck.removeCard(newsF[id].chosenCard);
+
 
 	}
 	// ustaw w newsF gameMode == EXPLORE i info kto wygrał (nie wysyłaj)
@@ -162,6 +168,9 @@ void Game::fight(int id)
 	newsF[id].gameMode = EXPLORE;
 	if(enemy->vitality == 0)
 	{
+		player[id]->intelligence = i;
+		player[id]->vitality = v;
+		player[id]->strength = s;
 		newsF[id].youWon = true;
 		delete enemy;
 		currentLocation[id]->occupation[playerX[id]][playerY[id]] = player[id];
@@ -236,6 +245,8 @@ void Game::deal(int id)
 				if(i == j->getId())
 					sumPaid += j->getPrice();
 			}
+			sumPaid += (newsD[id].boostStr + newsD[id].boostInt + newsD[id].boostVit) * STATPRICE;
+			sumPaid *= newsD[id].dealerFactor;
 		}
 		if(sumPaid > player[id]->getGold())
 			newsD[id].accept = false;
@@ -244,6 +255,9 @@ void Game::deal(int id)
 			newsD[id].accept = true;
 			player[id]->removeGold(sumPaid);
 			player[id]->addCards(newsD[id].cardsId);
+			player[id]->changeIntelligence(newsD[id].boostInt);
+			player[id]->changeStrength(newsD[id].boostStr);
+			player[id]->changeVitality(newsD[id].boostVit);
 		}
 		Dealer* dealer = (Dealer*) something;
 		dealer->removeCards(newsD[id].cardsId);

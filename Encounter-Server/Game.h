@@ -15,7 +15,7 @@ extern const unsigned mapSizeX, mapSizeY;
 extern const unsigned areaSizeX, areaSizeY;
 extern const unsigned areasX, areasY; 
 const int MANYMANY = 1000000;
-
+const int STATPRICE = 10;
 
 class Game {
 	//////////////////////////////

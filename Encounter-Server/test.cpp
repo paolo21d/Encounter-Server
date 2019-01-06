@@ -4,7 +4,6 @@
 #include "Nature.h"
 #include "Character.h"
 #include "Hero.h"
-#include "Mob.h"
 #include "News.h"
 #include "Dealer.h"
 #include "Chest.h"

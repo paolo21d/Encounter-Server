@@ -14,9 +14,9 @@ Character::Character() {
 Character::~Character() {
 }
 
-int Character::getId() const{
+/*int Character::getId() const{
 	return id;
-}
+}*/
 
 void Character::addCards(std::vector<int> v){
 	for(int i: v)
@@ -49,7 +49,7 @@ areaType Character::checkAdjacent()
 	return INTERACTING;
 }
 
-Mode Charater::interaction()
+Mode Character::interaction()
 {
 	return FIGHT;
 }

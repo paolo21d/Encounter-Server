@@ -74,7 +74,7 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsDeal & x) {
 	pckt << x.accept << x.areaToGoBackAfterDealX << x.areaToGoBackAfterDealY << x.dealerFactor << x.cardAmount;
 	for(int i; i < x.cardAmount; ++i)
 		pckt << x.cardsId[i];
-	pckt << x.income;
+	pckt << x.boostStr << x.boostVit << x.boostInt << x.income;
 	
 	return pckt;
 }
@@ -86,7 +86,7 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsDeal & x) {
 	pckt >> x.accept >> x.areaToGoBackAfterDealX >> x.areaToGoBackAfterDealY >> x.dealerFactor >> x.cardAmount;
 	for(int i; i < x.cardAmount; ++i)
 		pckt >> x.cardsId[i];
-	pckt >> income;
+	pckt >> x.boostStr << x.boostVit << x.boostInt << x.income;
 	
 	return pckt;
 }
@@ -100,7 +100,7 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
 	for(int i: {0, 1})
 		for(int j; j < x.cardAmount[i]; ++j)
 			pckt << x.cardsId[i][j];
-	pckt << chosenCard;
+	pckt << x.chosenCard;
 	
 	return pckt;
 }
@@ -114,7 +114,7 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
 	for(int i: {0, 1})
 		for(int j; j < x.cardAmount[i]; ++j)
 			pckt >> x.cardsId[i][j];
-	pckt >> chosenCard;
+	pckt >> x.chosenCard;
 	
 	return pckt;
 }

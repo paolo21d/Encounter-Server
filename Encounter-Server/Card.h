@@ -13,7 +13,6 @@ class Card {
 	string description;
 	unsigned costMana;
 	unsigned price;
-		
 	unsigned damage; // to s� punkty obrazen zadawane
 	
 	//uchwyt do Slider - obrazek
