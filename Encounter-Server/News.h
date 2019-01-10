@@ -55,6 +55,7 @@ public:
 	int strength[2];
 	int intelligence[2];
 	int vitality[2];
+	int hp[2];
 	int cardAmount[2];
 	std::vector<int> cardsId[2];	// posiadane karty
 	int chosenCard;

@@ -96,6 +96,7 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
 	pckt << x.strength[0] << x.strength[1];
 	pckt << x.intelligence[0] << x.intelligence[1];
 	pckt << x.vitality[0] << x.vitality[1];
+	pckt << x.hp[0] << x.hp[1];
 	pckt << static_cast<int>(x.cardsId[0].size()) << static_cast<int>(x.cardsId[1].size());
 	for(int i: {0, 1})
 		for(int j; j < x.cardAmount[i]; ++j)
@@ -107,9 +108,10 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
 
 sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
 	pckt >> x.youWon;
-	pckt >> x.strength[0] << x.strength[1];
+	pckt >> x.strength[0] << x.strength[1]; //co tu sie odwala, czemu w ta strone ??????????????????!!!!!!!!!!!!
 	pckt >> x.intelligence[0] << x.intelligence[1];
 	pckt >> x.vitality[0] << x.vitality[1];
+	pckt >> x.hp[0] << x.hp[1];
 	pckt >> x.cardAmount[0] << x.cardAmount[1];
 	for(int i: {0, 1})
 		for(int j; j < x.cardAmount[i]; ++j)
