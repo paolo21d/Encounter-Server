@@ -12,7 +12,7 @@ class Hero;
 //extern const unsigned areaSizeX, areaSizeY;		//ile pikseli ma pole
 
 class Object {	
-	//int id;
+	int id;
 	int x, y;					//współrzędne pola, nie piksela; liczne od lewej góry;
 	int width;
 	std::string fileName;
