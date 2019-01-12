@@ -18,7 +18,6 @@ class Map {
 	
 public:
 	static vector <Card*> allCards;
-
 	Map();
 	~Map();
 

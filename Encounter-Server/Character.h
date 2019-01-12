@@ -26,4 +26,5 @@ public:
 
 	virtual Mode interaction();
 	virtual areaType checkAdjacent();
+	virtual int freeMoney();
 };

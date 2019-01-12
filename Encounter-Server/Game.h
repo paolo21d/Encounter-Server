@@ -26,6 +26,7 @@ public:
 	std::mutex mm;
 	
 	Map map;
+	//vector <Card*> allCards;
 	Communication communication;
 	Location *currentLocation[2];
 

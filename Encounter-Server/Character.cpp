@@ -53,3 +53,7 @@ Mode Character::interaction()
 {
 	return FIGHT;
 }
+
+int Character::freeMoney(){
+	return 0;
+}

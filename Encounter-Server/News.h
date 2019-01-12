@@ -21,7 +21,8 @@ class NewsExplore: public News {
 public:
 	NewsExplore(Mode mode, int posX, int posY);
 	NewsExplore();
-
+	
+	int endGame; // 0 - gramy dalej; 1 - przegrałeś; 3 - grubas spitolił w holipę; 2 - rozwaliłeś ziomka
 	areaType adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //wysylane z serwera do klienta
 	int positionX, positionY; //wysylane od klienta do serwera
 	int oponentLocationId;
@@ -51,10 +52,12 @@ public:
 class NewsFight: public News {
 public:
 	// [0] - moje; [1] - przeciwnika
-	bool youWon;
+	int endFight; // 0 -walczymy; 1 - wygrałeś; 2 - przeciwnik wygrał
 	int strength[2];
 	int intelligence[2];
 	int vitality[2];
+	int hp[2];
+	int mana[2];
 	int cardAmount[2];
 	std::vector<int> cardsId[2];	// posiadane karty
 	int chosenCard;

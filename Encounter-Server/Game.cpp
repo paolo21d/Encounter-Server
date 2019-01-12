@@ -23,12 +23,24 @@ void Game::init(int id)
 
 void Game::game(int id) 
 {
-	
-	// pierwsza paczka do klienta
+	Packet pckt;
+	news[id] = &newsE[id];
+	newsE[id].gameMode = EXPLORE;
+	newsE[id].endGame = 0;
+	newsE[id].adjacent[0] = IMPASSABLE;
+	newsE[id].adjacent[1] = EMPTY;
+	newsE[id].adjacent[2] = EMPTY;
+	newsE[id].adjacent[3] = IMPASSABLE;
+	newsE[id].oponentLocationId = locationId[1 - id];
+	newsE[id].oponentX = newsE[id].oponentY = 0;
+	newsE[id].positionX = newsE[id].positionY = 0;
+	pckt << newsE[id];
+	communication.tabsoc[id].send(pckt);
 	
 	int mode;
 	while(1)
 	{
+		//////////////////// SPRAWDŹ, CZY KTOŚ SIĘ NIE ROZŁĄCZYŁ
 		Packet pcktRcv, pcktSnd;
 		communication.tabsoc[id].receive(pcktRcv);
 		switch(news[id]->gameMode)
@@ -131,6 +143,7 @@ void Game::fight(int id)
 
 	// odebrany przed chwilą newsF jest pusty
 	
+	newsF[id].endFight = 0;
 	while( enemy->vitality != 0 && player[id]->vitality != 0 )
 	{
 	//		wyślij dane moje 
@@ -152,6 +165,7 @@ void Game::fight(int id)
 		communication.tabsoc[id].receive(pcktRcv);
 		pcktRcv >> newsF[id];
 
+///////////////// WYSYŁAM ZAWSZE 5 KART - 4 stare i jedną nową
 	//		usuń użytą kartę, zaktualizuj i, v, s
 		for(Card* j: player[id]->myDeck.deck)
 			if(j->getId() == newsF[id].chosenCard)
@@ -166,18 +180,20 @@ void Game::fight(int id)
 	// ustaw w newsF gameMode == EXPLORE i info kto wygrał (nie wysyłaj)
 	// usuń przegranego z gry
 	newsF[id].gameMode = EXPLORE;
+	////////// NIE WYSYŁAM GAMEMODE, TYLKO INFO KTO WYGRAŁ
+	
 	if(enemy->vitality == 0)
 	{
 		player[id]->intelligence = i;
 		player[id]->vitality = v;
 		player[id]->strength = s;
-		newsF[id].youWon = true;
+		newsF[id].endFight = 1;
 		delete enemy;
 		currentLocation[id]->occupation[playerX[id]][playerY[id]] = player[id];
 	}
 	else
 	{
-		newsF[id].youWon = false;
+		newsF[id].endFight = 2;
 		gameEndsWinnerIs = player[1 - id];
 	}
 	// wygrany zajmuje dane pole

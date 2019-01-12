@@ -31,7 +31,7 @@ public:
 
 	virtual Mode interaction() = 0; //Hero,Mob - walka, Dealer-handel, reszta - nic
 	virtual areaType checkAdjacent() = 0;
-	virtual int freeMoney();
+	virtual int freeMoney() = 0;
 };
 
 #endif // !OBJECT_H
