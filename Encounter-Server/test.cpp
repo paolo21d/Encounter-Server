@@ -50,11 +50,11 @@ int main()
 }
 */
 
-const unsigned mapSizeX = 100, mapSizeY = 100;
-const unsigned areaSizeX = 25, areaSizeY = 25;
-const unsigned areasX = 4, areasY = 4;
+const unsigned mapSizeX = 1000, mapSizeY = 550;
+const unsigned areaSizeX = 100, areaSizeY = 50;
+const unsigned areasX = mapSizeX/areaSizeX, areasY = mapSizeY/areaSizeY;
 const int BASICSTATS = 10;
-const unsigned locationAmount = 4;
+const unsigned locationAmount = 1;
 const int STATPRICE = 10;
 int main()
 {
