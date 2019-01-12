@@ -8,6 +8,7 @@
 
 extern const unsigned mapSizeX, mapSizeY;
 extern const unsigned areaSizeX, areaSizeY;
+extern const unsigned locationAmount;
 
 using namespace std;
 class Map {

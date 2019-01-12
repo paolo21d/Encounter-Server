@@ -44,3 +44,6 @@ void Object::setY(int y_){
 	y = y_;
 }
 
+int Object::freeMoney(){
+	// nigdy to się nie wywyoła
+}

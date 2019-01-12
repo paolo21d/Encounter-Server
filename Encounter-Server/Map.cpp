@@ -2,7 +2,6 @@
 #include <string>
 using namespace std;
 
-extern const unsigned locationAmount;
 
 vector<Card*> Map::allCards = {};
 

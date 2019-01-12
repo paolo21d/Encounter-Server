@@ -1,6 +1,7 @@
 #include "Nature.h"
 #include "EncException.h"
 
+/////////////////////// 	KONSTRUKTORY
 
 Nature::Nature() {
 }
@@ -14,6 +15,8 @@ Nature::Nature(int x_, int y_, string fileName){
 Nature::~Nature() {
 }
 
+////////////////////////	VIRTUALNE
+
 Mode Nature::interaction(){
 	return EXPLORE;
 	// docelowo throw IllegalEntry();
@@ -22,5 +25,9 @@ Mode Nature::interaction(){
 areaType Nature::checkAdjacent()
 {
 	return IMPASSABLE;
+}
+
+int Nature::freeMoney(){
+	// throw cośtam
 }
 
