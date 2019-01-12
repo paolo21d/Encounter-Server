@@ -1,15 +1,26 @@
 #include "Location.h"
+#include "Character.h"
+#include "Dealer.h"
+#include "Chest.h"
+#include "Nature.h"
 #include <string>
 
 using namespace std;
 
 
-/*Location::Location(string addres) {
-	sf::Texture texture;
-	texture.loadFromFile(addres);
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-}*/
+Location::Location(string fileName, int newId): backgroundSource(fileName), id(newId) {
+	Character* mob = new Character(/* x, y, s, i, v, name*/ 1, 1, 1, 1, 1, "mob1.png");
+	occupation[1][1] = mob;
+
+	Dealer* dealer = new Dealer(/* x, y, saleFactor, name*/2, 2, 0.5, "dealer1.png");
+	occupation[2][2] = dealer;
+
+	Chest* chest = new Chest(/* x, y, gold, name */3, 3, 20, "chest1.png");
+	occupation[3][3] = chest;
+
+	Nature* nature = new Nature(/* x, y, name */ 4, 4, "nature1.png");
+	occupation[4][4] = nature;
+}
 
 Location::Location() {
 

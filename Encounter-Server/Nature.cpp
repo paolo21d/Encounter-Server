@@ -5,6 +5,11 @@
 Nature::Nature() {
 }
 
+Nature::Nature(int x_, int y_, string fileName){
+	setX(x_);
+	setY(y_);
+	setFileName(fileName);
+}
 
 Nature::~Nature() {
 }

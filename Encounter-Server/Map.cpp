@@ -2,17 +2,25 @@
 #include <string>
 using namespace std;
 
+extern const unsigned locationAmount;
+
 vector<Card*> Map::allCards = {};
 
 Map::Map() {
     Location* location;
-    for(int i = 0; i < 4; ++i)
+    char a;
+    string s;
+    for(int i = 0; i < locationAmount; ++i)
     {
-        location = new Location(string sourceName);
-        locations[i] = location;
+        a = '0' + i;
+        s = a;
+        location = new Location(string("location") + s + string(".png"), i);
+        locations.push_back(location);
     }
 }
 
 
 Map::~Map() {
+    for(int i = locations.size() - 1; i >= 0; --i)
+        delete &locations[i];
 }

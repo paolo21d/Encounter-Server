@@ -7,7 +7,6 @@
 class Character : public Object{
 	friend class Game;
 	
-	std::string name;
 	Deck myDeck;
 	int strength;
 	int intelligence;
@@ -15,6 +14,7 @@ class Character : public Object{
 	//int id;				//potrzebne do testów, potem może usuniemy
 public:
 	Character();
+	Character(int x_, int y_, int s, int i, int v, string fileName);
 	~Character();
 	//int getId() const;	// --||--
 	

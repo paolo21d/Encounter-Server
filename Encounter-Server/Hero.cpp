@@ -1,15 +1,19 @@
 #include "Hero.h"
 
 
-Hero::Hero() {
+///////////////////////////		KONSTRUTORY
+
+Hero::Hero(): gold(BASICSTATS) {
+	changeStrength(BASICSTATS);
+	changeIntelligence(BASICSTATS);
+	changeVitality(BASICSTATS);
 }
 
 Hero::~Hero() {
 
 }
 
-Hero::Hero(int gold_): gold(gold_) {
-}
+//////////////////////////////////		POZOSTAŁE
 
 void Hero::addGold(int newGold){
 	gold += newGold;
@@ -23,3 +27,10 @@ int Hero::getGold() {
 	return gold;
 }
 
+int Hero::getCurrLocationId(){
+	return currentLocation;
+}
+
+void Hero::setCurrLocationId(int newLocation){
+	currentLocation = newLocation;
+}

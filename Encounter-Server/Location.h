@@ -18,7 +18,7 @@ class Location {
 public:
 	Object* occupation[areasCountX][areasCountY];
 
-	//Location(string addres);
+	Location(string fileName, int newId);
 	Location();
 	~Location(); // usuwać obiekty z occupation !!!
 	int getId() const;

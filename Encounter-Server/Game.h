@@ -14,8 +14,7 @@
 extern const unsigned mapSizeX, mapSizeY;
 extern const unsigned areaSizeX, areaSizeY;
 extern const unsigned areasX, areasY; 
-const int MANYMANY = 1000000;
-const int STATPRICE = 10;
+extern const int STATPRICE;
 
 class Game {
 	//////////////////////////////
@@ -45,8 +44,8 @@ public:
 	Game();
 	~Game();
 
-	void init(int socnum);
-	void game(int socnum);
+	void init(int socnum, Hero* hero);
+	void game(int socnum, Hero* hero);
 
 	void explore(int id);
 	void fight(int id);

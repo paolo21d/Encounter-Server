@@ -12,6 +12,7 @@ class Dealer :	public Character {
 	
 public:
 	Dealer();
+	Dealer(int x_, int y_, double saleFactor_, std::string fileName);
 	Dealer(Deck& soldCards_, double saleFactor_);
 	~Dealer();
 

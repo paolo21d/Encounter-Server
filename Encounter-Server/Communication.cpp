@@ -47,12 +47,12 @@ void Communication::sendMap(const Map& map, const int num) {
 	packet << static_cast<int>(map.locations.size());
 	packet << areaSizeX << areaSizeY;
 	for (int i = 0; i < map.locations.size(); ++i) { //przeslanie lokacji
-		packet << map.locations[i].getId() << map.locations[i].getSrc();
+		packet << map.locations[i]->getId() << map.locations[i]->getSrc();
 		vector<Object*> tempObj;
 		for (int k = 0; k < areasCountX; ++k) {
 			for (int j = 0; j < areasCountY; ++j) {
-				if (map.locations[i].occupation[k][j] != nullptr)
-					tempObj.push_back(map.locations[i].occupation[k][j]);
+				if (map.locations[i]->occupation[k][j] != nullptr)
+					tempObj.push_back(map.locations[i]->occupation[k][j]);
 			}
 		}
 		packet << static_cast<int>(tempObj.size());

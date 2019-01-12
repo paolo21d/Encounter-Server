@@ -1,16 +1,25 @@
 #include "Chest.h"
 #include "Hero.h"
 
+///////////////////////		KONSTRUKTORY
+
 Chest::Chest() {
+}
+
+Chest::Chest(int x_, int y_, int gold_, string fileName): gold(gold_) {
+	setX(x_);
+	setY(y_);
+	setFileName(fileName);
 }
 
 Chest::Chest(Deck& myDeck_, int gold_): gold(gold_){
 	myDeck = myDeck_;
 }
 
-Chest::~Chest() {
-	
+Chest::~Chest() {	
 }
+
+//////////////////////		VIRTUALNE
 
 int Chest::freeMoney()
 {

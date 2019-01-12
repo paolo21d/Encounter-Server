@@ -53,11 +53,18 @@ int main()
 const unsigned mapSizeX = 100, mapSizeY = 100;
 const unsigned areaSizeX = 25, areaSizeY = 25;
 const unsigned areasX = 4, areasY = 4;
-
+const int BASICSTATS = 10;
+const unsigned locationAmount = 4;
+const int STATPRICE = 10;
 int main()
 {
 	Game game;
 
+	Hero einz;
+	einz.setCurrLocationId(1);
+	Hero tzwei;
+	tzwei.setCurrLocationId(2);
+	
 	int portNumber = 2003;
 	TcpListener listener;
 
@@ -67,14 +74,14 @@ int main()
 		cout << "Nawiazano polaczenie z klientem: " << i << endl;
 	}
 
-	thread uno(&Game::init, &game, 0);
-	thread due(&Game::init, &game, 1);
+	thread uno(&Game::init, &game, 0, &einz);
+	thread due(&Game::init, &game, 1, &tzwei);
 
 	uno.join();
 	due.join();
 
-	thread tre(&Game::game, &game, 0);
-	thread quattro(&Game::game, &game, 1);
+	thread tre(&Game::game, &game, 0, &einz);
+	thread quattro(&Game::game, &game, 1, &tzwei);
 
 	uno.join();
 	due.join();

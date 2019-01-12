@@ -7,16 +7,20 @@ Character::Character() {
 }
 */
 
-Character::Character() {
-
+/////////// 	KONSTRUKTORY
+Character::Character():strength(0), vitality(0), intelligence(0) {
 }
 
 Character::~Character() {
 }
 
-/*int Character::getId() const{
-	return id;
-}*/
+Character::Character(int x_, int y_, int s, int i, int v, string fileName): strength(s), intelligence(i), vitality(v){
+	setX(x_);
+	setY(y_);
+	setFileName(fileName);
+}
+
+///////////////		POZOSTAŁE
 
 void Character::addCards(std::vector<int> v){
 	for(int i: v)
@@ -43,6 +47,8 @@ void Character::changeIntelligence(int x){
 void Character::changeVitality(int x){
 	vitality += x;
 }
+
+//////////////		VIRTUALNE
 
 areaType Character::checkAdjacent()
 {

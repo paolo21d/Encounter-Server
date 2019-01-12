@@ -12,7 +12,7 @@ class Hero;
 //extern const unsigned areaSizeX, areaSizeY;		//ile pikseli ma pole
 
 class Object {	
-	int id;
+	//int id;
 	int x, y;					//współrzędne pola, nie piksela; liczne od lewej góry;
 	int width;
 	std::string fileName;
@@ -25,13 +25,14 @@ public:
 	int getY() const;
 	int getId() const;
 	std::string getFileName() const;
+	void setFileName(std::string newFileName);
 	void setX(int x_);
 	void setY(int y_);
 	Object(int x_, int y_, int width_ = 1);
 
 	virtual Mode interaction() = 0; //Hero,Mob - walka, Dealer-handel, reszta - nic
 	virtual areaType checkAdjacent() = 0;
-	virtual int freeMoney() = 0;
+	virtual int freeMoney();
 };
 
 #endif // !OBJECT_H

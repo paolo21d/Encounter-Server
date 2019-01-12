@@ -10,6 +10,7 @@ class Chest :	public Object {
 	int gold;				//pieniądze w skrzyni	
 public:
 	Chest();
+	Chest(int x_, int y_, int gold_, std::string fileName);
 	Chest(Deck& myDeck_, int gold_);
 	~Chest();
 	

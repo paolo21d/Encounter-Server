@@ -16,13 +16,18 @@ Game::Game()
 Game::~Game() {
 }
 
-void Game::init(int id)
+void Game::init(int id, Hero* hero)
 {
 	communication.sendMap(map, id);
 }
 
-void Game::game(int id) 
+void Game::game(int id, Hero* hero)
 {
+	player[id] = hero;
+	for(Location* i: map.locations)
+		if(i->getId() == hero->getCurrLocationId())
+			currentLocation[id] = i;
+
 	Packet pckt;
 	news[id] = &newsE[id];
 	newsE[id].gameMode = EXPLORE;
