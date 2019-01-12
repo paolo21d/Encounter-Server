@@ -16,7 +16,7 @@ Game::Game()
 Game::~Game() {
 }
 
-void Game::init(int id, Hero* hero)
+void Game::init(int id)
 {
 	communication.sendMap(map, id);
 }

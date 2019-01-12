@@ -10,7 +10,6 @@ using namespace sf;
 Communication::Communication() {
 }
 
-
 Communication::~Communication() {
 }
 
@@ -41,7 +40,7 @@ void Communication::srdata(int num, int socnum) {
 void Communication::sendMap(const Map& map, const int num) {
 
 	//trzeba dodać wysyłanie grafik
-
+	cout << "Zaczynam pakowac do wyslania mape dla usera " << num << endl;
 	Packet packet;
 	packet << mapSizeX << mapSizeY;
 	packet << static_cast<int>(map.locations.size());
@@ -66,5 +65,6 @@ void Communication::sendMap(const Map& map, const int num) {
 	for (int i = 0; i < Map::allCards.size(); ++i) {
 		packet << Map::allCards[i]->getId() << Map::allCards[i]->getSrc() << Map::allCards[i]->getName() << Map::allCards[i]->getDescription() << Map::allCards[i]->getCostMana() << Map::allCards[i]->getDamage() << Map::allCards[i]->getCostGold();
 	}
+	cout << "Probuje wsylac pakiet z danymi mapy do usera " << num << endl;
 	tabsoc[num].send(packet);
 }

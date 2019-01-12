@@ -73,9 +73,9 @@ int main()
 		listener.accept(game.communication.tabsoc[i]);
 		cout << "Nawiazano polaczenie z klientem: " << i << endl;
 	}
-
-	thread uno(&Game::init, &game, 0, &einz);
-	thread due(&Game::init, &game, 1, &tzwei);
+	cout << "Robie watki do wysylania mapy:" << endl;
+	thread uno(&Game::init, &game, 0);
+	thread due(&Game::init, &game, 1);
 
 	uno.join();
 	due.join();
@@ -83,7 +83,7 @@ int main()
 	thread tre(&Game::game, &game, 0, &einz);
 	thread quattro(&Game::game, &game, 1, &tzwei);
 
-	uno.join();
-	due.join();
+	//uno.join();
+	//due.join();
 
 }

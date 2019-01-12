@@ -44,7 +44,7 @@ public:
 	Game();
 	~Game();
 
-	void init(int socnum, Hero* hero);
+	void init(int socnum);
 	void game(int socnum, Hero* hero);
 
 	void explore(int id);

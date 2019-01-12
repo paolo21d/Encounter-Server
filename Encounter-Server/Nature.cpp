@@ -29,5 +29,6 @@ areaType Nature::checkAdjacent()
 
 int Nature::freeMoney(){
 	// throw cośtam
+	return -1;
 }
 
