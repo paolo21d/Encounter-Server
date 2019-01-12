@@ -113,8 +113,8 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
 	pckt >> x.strength[0] >> x.strength[1];
 	pckt >> x.intelligence[0] >> x.intelligence[1];
 	pckt >> x.vitality[0] >> x.vitality[1];
-	//hp
-	//mana
+	pckt >> x.hp[0] >> x.hp[1];
+	pckt >> x.mana[0] >> x.mana[1];
 	pckt >> x.cardAmount[0] >> x.cardAmount[1];
 	for(int i: {0, 1})
 		for(int j = 0; j < x.cardAmount[i]; ++j)
