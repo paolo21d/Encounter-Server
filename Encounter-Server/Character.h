@@ -4,6 +4,8 @@
 #include "Deck.h"
 #include <string>
 
+extern const unsigned STARTINGCARDS;
+
 class Character : public Object{
 	friend class Game;
 	

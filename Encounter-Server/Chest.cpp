@@ -10,6 +10,7 @@ Chest::Chest(int x_, int y_, int gold_, string fileName): gold(gold_) {
 	setX(x_);
 	setY(y_);
 	setFileName(fileName);
+	myDeck.fill(STARTINGCARDS);
 }
 
 Chest::Chest(Deck& myDeck_, int gold_): gold(gold_){

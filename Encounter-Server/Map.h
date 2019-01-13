@@ -4,11 +4,11 @@
 #include "Location.h"
 #include "Card.h"
 #include <vector>
-//#include <SFML\Graphics.hpp>
 
 extern const unsigned mapSizeX, mapSizeY;
 extern const unsigned areaSizeX, areaSizeY;
 extern const unsigned locationAmount;
+extern const unsigned CARDSAMOUNT;
 
 using namespace std;
 class Map {

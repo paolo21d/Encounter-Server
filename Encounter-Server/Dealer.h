@@ -5,6 +5,8 @@
 #include "Hero.h"
 #include <vector>
 
+extern const unsigned STARTINGCARDS;
+
 class Dealer :	public Character {
 	friend class Game;
 	Deck soldCards;

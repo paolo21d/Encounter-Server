@@ -3,6 +3,7 @@
 #define CARD_H
 
 #include <string>
+
 using namespace std;
 class Card { 
 	friend class Game;
@@ -19,7 +20,7 @@ class Card {
 
 public:
 	Card();
-	Card(const string &n, const unsigned& dmg, const unsigned& costmana);
+	Card(const string n, const int dmg, const int mana, const int money, const int num);
 	~Card();
 
 	//void setStat(const unsigned& dmg, const unsigned& costI);

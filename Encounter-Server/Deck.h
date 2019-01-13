@@ -15,6 +15,7 @@ public:
 
 	void addCard(const int cardNum);
 	void removeCard(const int cardNum);
+	void fill(int amount);
 
 };
 

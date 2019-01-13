@@ -5,10 +5,13 @@
 Dealer::Dealer() {
 }
 
-Dealer::Dealer(int x_, int y_, double saleFactor_, string fileName): saleFactor(saleFactor_){
+// wywalić dealer_factor
+
+Dealer::Dealer(int x_, int y_, double saleFactor_, string fileName): saleFactor(1){
 	setX(x_);
 	setY(y_);
 	setFileName(fileName);
+	soldCards.fill(STARTINGCARDS);
 }
 
 Dealer::Dealer(Deck& soldCards_, double saleFactor_): saleFactor(saleFactor){

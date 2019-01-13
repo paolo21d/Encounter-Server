@@ -3,6 +3,8 @@
 #include "Deck.h"
 #include "News.h"
 
+extern const unsigned STARTINGCARDS;
+
 class Chest :	public Object {
 	friend class Game;
 	

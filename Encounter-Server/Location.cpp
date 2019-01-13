@@ -14,16 +14,16 @@ Location::Location(string fileName, int newId): backgroundSource(fileName), id(n
 			occupation[i][k] = nullptr;
 
 	Character* mob = new Character(/* x, y, s, i, v, name*/ 7, 5, 1, 1, 1, "mob1.png");
-	occupation[1][1] = mob;
+	occupation[7][5] = mob;
 
 	Dealer* dealer = new Dealer(/* x, y, saleFactor, name*/5, 3, 0.5, "dealer1.png");
-	occupation[2][2] = dealer;
+	occupation[5][3] = dealer;
 
 	Chest* chest = new Chest(/* x, y, gold, name */4, 8, 20, "chest1.png");
-	occupation[3][3] = chest;
+	occupation[4][8] = chest;
 
 	Nature* nature = new Nature(/* x, y, name */ 7, 7, "nature1.png");
-	occupation[4][4] = nature;
+	occupation[7][7] = nature;
 }
 
 Location::Location() {

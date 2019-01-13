@@ -73,23 +73,25 @@ sf::Packet & operator >> (sf::Packet & pckt, NewsExplore & x) {
 
 sf::Packet & operator<<(sf::Packet & pckt, const NewsDeal & x) {
 	pckt << x.gameMode;
-	pckt << x.accept << x.areaToGoBackAfterDealX << x.areaToGoBackAfterDealY << x.dealerFactor << x.cardAmount;
+	pckt << x.accept << x.areaToGoBackAfterDealX << x.areaToGoBackAfterDealY << x.cardAmount;
 	for(int i=0; i < x.cardAmount; ++i)
 		pckt << x.cardsId[i];
-	pckt << x.boostStr << x.boostVit << x.boostInt << x.income;
-	
+	pckt << x.income;
 	return pckt;
 }
 
 sf::Packet & operator >> (sf::Packet & pckt, NewsDeal & x) {
-	int temp;
+	int temp, cardId;
 	pckt >> temp;
-	x.gameMode = static_cast<Mode>(temp);
-	pckt >> x.accept >> x.areaToGoBackAfterDealX >> x.areaToGoBackAfterDealY >> x.dealerFactor >> x.cardAmount;
-	for(int i=0; i < x.cardAmount; ++i)
-		pckt >> x.cardsId[i];
-	pckt >> x.boostStr << x.boostVit << x.boostInt << x.income;
-	
+	//x.gameMode = static_cast<Mode>(temp);
+	pckt >> x.cardAmount;
+	x.cardsId.clear();
+	for(int i=0; i < x.cardAmount; ++i){
+		pckt >> cardId;
+		x.cardsId.push_back(cardId);
+	}
+	pckt >> x.areaToGoBackAfterDealX >> x.areaToGoBackAfterDealY >> x.accept << x.income;
+	pckt >> x.boostStr >> x.boostInt >> x.boostVit;
 	return pckt;
 }
 

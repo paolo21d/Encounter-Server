@@ -34,16 +34,15 @@ public:
 	Communication();
 	~Communication();
 
-	void srdata(int num, int socnum);
 	void sendMap(const Map& map, const int num);
-
-	void sendData(int num, int socnum);
-	void receiveData(int num, int socnum);
 	
 	///////		testowe:
 	
 	void startConnection();
 	void testSendImg();
+	void srdata(int num, int socnum);
+	void sendData(int num, int socnum);
+	void receiveData(int num, int socnum);
 };
 
 #endif // !COMMUNICATION_H

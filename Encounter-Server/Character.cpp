@@ -18,6 +18,7 @@ Character::Character(int x_, int y_, int s, int i, int v, string fileName): stre
 	setX(x_);
 	setY(y_);
 	setFileName(fileName);
+	myDeck.fill(STARTINGCARDS);
 }
 
 ///////////////		POZOSTAŁE
