@@ -29,7 +29,9 @@ void Game::game(int id, Hero* hero)
 			currentLocation[id] = i;
 
 	Packet initialPacket;
-	initialPacket << player[id]->strength << player[id]->intelligence << player[id]->vitality << player[id]->gold << currentLocation[id]->getId() << player[id]->getX() << player[id]->getY();
+	initialPacket << player[id]->strength << player[id]->intelligence << player[id]->vitality << player[id]->gold;
+	initialPacket << currentLocation[id]->getId() << player[id]->getX() << player[id]->getY();
+	initialPacket<< currentLocation[(id + 1) % 2]->getId() << player[(id + 1) % 2]->getX() << player[(id + 1) % 2]->getY();
 	communication.tabsoc[id].send(initialPacket);
 
 	Packet pckt;

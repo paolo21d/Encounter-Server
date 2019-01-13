@@ -20,5 +20,5 @@ public:
 	void addGold(int newGold);
 	void removeGold(int spentGold);
 	int getGold();
-
+	//void setPosition();
 };

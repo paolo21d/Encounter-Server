@@ -12,6 +12,7 @@ class Hero;
 //extern const unsigned areaSizeX, areaSizeY;		//ile pikseli ma pole
 
 class Object {	
+protected:
 	int id;
 	int x, y;					//współrzędne pola, nie piksela; liczne od lewej góry;
 	int width;

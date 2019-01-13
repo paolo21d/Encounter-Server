@@ -62,9 +62,13 @@ int main()
 
 	Hero einz;
 	einz.setCurrLocationId(0);
+	einz.setX(0);
+	einz.setY(5);
 	Hero tzwei;
 	tzwei.setCurrLocationId(1);
-	
+	tzwei.setX(5);
+	tzwei.setY(5);
+
 	int portNumber = 2003;
 	TcpListener listener;
 
