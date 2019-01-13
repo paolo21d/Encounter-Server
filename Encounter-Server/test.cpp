@@ -11,6 +11,7 @@
 #include "Deck.h"
 #include "Game.h"
 #include <SFML/Network.hpp>
+#include <time.h>
 
 using namespace std;
 using namespace sf;
@@ -55,40 +56,43 @@ const unsigned areaSizeX = 100, areaSizeY = 50;
 const unsigned areasX = mapSizeX/areaSizeX, areasY = mapSizeY/areaSizeY;
 const int BASICSTATS = 10;
 const unsigned locationAmount = 1;
-const int STATPRICE = 10;
+const int STATPRICE = 1;
+const unsigned STARTINGCARDS = 5;
+const unsigned CARDSAMOUNT = 5;
+
 int main()
 {
-	Game game;
+	srand(time(NULL));
 
+	Game game;
+	
 	Hero einz;
 	einz.setCurrLocationId(0);
-	einz.setX(0);
+	einz.setX(4);
 	einz.setY(5);
 	Hero tzwei;
-	tzwei.setCurrLocationId(1);
+	tzwei.setCurrLocationId(0);
 	tzwei.setX(5);
 	tzwei.setY(5);
 
-	int portNumber = 2003;
+	int portNumber = 2009;
 	TcpListener listener;
 
 	listener.listen(portNumber);
-	for (unsigned i = 0; i < 1; ++i) {
+	for (unsigned i = 0; i < 2; ++i) {
 		listener.accept(game.communication.tabsoc[i]);
 		cout << "Nawiazano polaczenie z klientem: " << i << endl;
 	}
 	cout << "Robie watki do wysylania mapy:" << endl;
 	thread uno(&Game::init, &game, 0);
-	//thread due(&Game::init, &game, 1);
+	thread due(&Game::init, &game, 1);
 
 	uno.join();
-	//due.join();
+	due.join();
 
 	thread tre(&Game::game, &game, 0, &einz);
-	//thread quattro(&Game::game, &game, 1, &tzwei);
+	thread quattro(&Game::game, &game, 1, &tzwei);
 
-	//uno.join();
-	//due.join();
 	tre.join();
-
+	quattro.join();
 }
