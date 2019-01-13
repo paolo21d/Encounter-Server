@@ -28,6 +28,10 @@ void Game::game(int id, Hero* hero)
 		if(i->getId() == hero->getCurrLocationId())
 			currentLocation[id] = i;
 
+	Packet initialPacket;
+	initialPacket << player[id]->strength << player[id]->intelligence << player[id]->vitality << player[id]->gold << currentLocation[id]->getId() << player[id]->getX() << player[id]->getY();
+	communication.tabsoc[id].send(initialPacket);
+
 	Packet pckt;
 	news[id] = &newsE[id];
 	newsE[id].gameMode = EXPLORE;

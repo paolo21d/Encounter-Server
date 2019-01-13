@@ -61,29 +61,30 @@ int main()
 	Game game;
 
 	Hero einz;
-	einz.setCurrLocationId(1);
+	einz.setCurrLocationId(0);
 	Hero tzwei;
-	tzwei.setCurrLocationId(2);
+	tzwei.setCurrLocationId(1);
 	
 	int portNumber = 2003;
 	TcpListener listener;
 
 	listener.listen(portNumber);
-	for (unsigned i = 0; i < 2; ++i) {
+	for (unsigned i = 0; i < 1; ++i) {
 		listener.accept(game.communication.tabsoc[i]);
 		cout << "Nawiazano polaczenie z klientem: " << i << endl;
 	}
 	cout << "Robie watki do wysylania mapy:" << endl;
 	thread uno(&Game::init, &game, 0);
-	thread due(&Game::init, &game, 1);
+	//thread due(&Game::init, &game, 1);
 
 	uno.join();
-	due.join();
+	//due.join();
 
 	thread tre(&Game::game, &game, 0, &einz);
-	thread quattro(&Game::game, &game, 1, &tzwei);
+	//thread quattro(&Game::game, &game, 1, &tzwei);
 
 	//uno.join();
 	//due.join();
+	tre.join();
 
 }

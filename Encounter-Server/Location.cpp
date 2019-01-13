@@ -9,6 +9,10 @@ using namespace std;
 
 
 Location::Location(string fileName, int newId): backgroundSource(fileName), id(newId) {
+	for (int i = 0; i < areasCountX; ++i)
+		for (int k = 0; k < areasCountY; ++k)
+			occupation[i][k] = nullptr;
+
 	Character* mob = new Character(/* x, y, s, i, v, name*/ 7, 5, 1, 1, 1, "mob1.png");
 	occupation[1][1] = mob;
 

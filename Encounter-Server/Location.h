@@ -7,8 +7,8 @@
 
 extern const unsigned mapSizeX, mapSizeY;
 extern const unsigned areaSizeX, areaSizeY;
-const unsigned areasCountX = 4;
-const unsigned areasCountY = 4;
+const unsigned areasCountX = 10;
+const unsigned areasCountY = 11;
 
 class Location {
 	int id;

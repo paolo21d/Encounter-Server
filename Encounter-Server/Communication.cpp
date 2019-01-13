@@ -61,10 +61,12 @@ void Communication::sendMap(const Map& map, const int num) {
 	}
 
 	//przeslanie kart
+	cout << "Rozmiar: " << Map::allCards.size() << endl;
 	packet << static_cast<int>(Map::allCards.size());
 	for (int i = 0; i < Map::allCards.size(); ++i) {
 		packet << Map::allCards[i]->getId() << Map::allCards[i]->getSrc() << Map::allCards[i]->getName() << Map::allCards[i]->getDescription() << Map::allCards[i]->getCostMana() << Map::allCards[i]->getDamage() << Map::allCards[i]->getCostGold();
 	}
-	cout << "Probuje wsylac pakiet z danymi mapy do usera " << num << endl;
+	//cout << "Probuje wsylac pakiet z danymi mapy do usera " << num << endl;
 	tabsoc[num].send(packet);
+	cout << "Wyslalem dane mapy do klienta" << endl;
 }
