@@ -10,10 +10,9 @@
 using namespace std;
 using namespace sf;
 
-Game::Game()
+Game::Game(): sem1(0), sem2(0)
 {
 	myOpponent[0] = myOpponent[1] = nullptr;
-
 }
 
 Game::~Game() {
@@ -34,9 +33,17 @@ void Game::game(int id, Hero* hero)
 		if(i->getId() == hero->getCurrLocationId())
 			currentLocation[id] = i;
 	
-	sleep(milliseconds(2000));
-	//dodać mutexowe czekanie na kolegę
+	//sleep(milliseconds(2000));
 
+	if(id){
+		sem1.p();
+		sem2.v();
+	}
+	else {
+		sem1.v();
+		sem2.p();
+	}
+	
 	Packet initialPacket;
 	initialPacket << player[id]->strength << player[id]->intelligence << player[id]->vitality << player[id]->gold;
 	initialPacket << currentLocation[id]->getId() << player[id]->getX() << player[id]->getY();
@@ -181,6 +188,14 @@ void Game::explore(int id)
 void Game::fight(int id)
 {
 		//	*	poczekaj na kolegę
+		if(id){
+			sem1.p();
+			sem2.v();
+		}
+		else {
+			sem1.v();
+			sem2.p();
+		}
 	Packet pcktRcv, pcktSnd;
 	Character* enemy = myOpponent[id];
 	Character* myself = myOpponent[1 - id];
@@ -219,7 +234,14 @@ void Game::fight(int id)
 	}
 
 		//	*	poczekaj na kolegę
-		
+		if(id){
+			sem1.p();
+			sem2.v();
+		}
+		else {
+			sem1.v();
+			sem2.p();
+		}
 	while(1) {
 		Card* mightyCardThatsGonnabeatYouAll;
 		
@@ -235,12 +257,19 @@ void Game::fight(int id)
 			myself->myDeck.removeCard(newsF[id].chosenCard);
 		}
 
+			//	*	poczekaj na kolegę
+			if(id){
+				sem1.p();
+				sem2.v();
+			}
+			else {
+				sem1.v();
+				sem2.p();
+			}
+
 		if(myself->vitality == 0 || enemy->vitality == 0) {
 			break;
 		}
-
-			//	*	poczekaj na kolegę
-
 		newsF[id].endFight = 0; 
 		newsF[id].strength[0] = s[0];
 		newsF[id].intelligence[0] = i[0];
@@ -270,13 +299,18 @@ void Game::fight(int id)
 			enemy->vitality -= mightyCardThatsGonnabeatYouAll->getDamage();
 			myself->myDeck.removeCard(newsF[id].chosenCard);
 		}
-
+			//	*	poczekaj na kolegę
+			if(id){
+				sem1.p();
+				sem2.v();
+			}
+			else {
+				sem1.v();
+				sem2.p();
+			}
 		if(myself->vitality <= 0 || enemy->vitality <= 0) {
 			break;
 		}
-
-			//	*	poczekaj na kolegę
-		
 		newsF[id].endFight = 0; 
 		newsF[id].strength[0] = s[0];
 		newsF[id].intelligence[0] = i[0];
@@ -316,6 +350,15 @@ void Game::fight(int id)
 		newsF[1 - id].endFight = 2;
 		//gameEndsWinnerIs = ...
 	}
+		//	*	poczekaj na kolegę
+			if(id){
+				sem1.p();
+				sem2.v();
+			}
+			else {
+				sem1.v();
+				sem2.p();
+			}
 }
 
 		
