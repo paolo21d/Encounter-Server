@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "Dealer.h"
 #include "Chest.h"
+#include <chrono>
+#include <thread>
 
 using namespace std;
 using namespace sf;
@@ -31,7 +33,7 @@ void Game::game(int id, Hero* hero)
 		if(i->getId() == hero->getCurrLocationId())
 			currentLocation[id] = i;
 
-
+	std::this_thread::sleep_for(2s);
 	Packet initialPacket;
 	initialPacket << player[id]->strength << player[id]->intelligence << player[id]->vitality << player[id]->gold;
 	initialPacket << currentLocation[id]->getId() << player[id]->getX() << player[id]->getY();
