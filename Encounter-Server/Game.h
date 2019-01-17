@@ -23,7 +23,7 @@ class Game {
 public:	
 	// dopisać wszędzie korzystanie z mutexa !!!
 	std::mutex exploreMutex;
-	
+	std::mutex initMutex[2];
 	Map map;
 	//vector <Card*> allCards;
 	Communication communication;
@@ -41,8 +41,12 @@ public:
 
 	int dealX[2];
 	int dealY[2];
-	
+	int areaAfterDealX[2];
+	int areaAfterDealY[2];
+
 	Hero* gameEndsWinnerIs;
+	Character* myOpponent[2];
+
 //public:
 	Game();
 	~Game();

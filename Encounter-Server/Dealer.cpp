@@ -44,3 +44,8 @@ void Dealer::removeCards(std::vector<int> v)
 		soldCards.removeCard(i);
 	}
 }
+
+void Dealer::printCards()
+{
+	soldCards.print();
+}

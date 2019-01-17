@@ -17,6 +17,7 @@ public:
 	void removeCard(const int cardNum);
 	void fill(int amount);
 
+	void print();
 };
 
 #endif // !DECK_H

@@ -20,8 +20,8 @@ public:
 	~Character();
 	//int getId() const;	// --||--
 	
-	void addCards(std::vector<int> v);
-	void removeCards(std::vector<int> v);
+	void addCards(std::vector<int>& v);
+	void removeCards(std::vector<int>& v);
 	void changeStrength(int x);
 	void changeIntelligence(int x);
 	void changeVitality(int x);

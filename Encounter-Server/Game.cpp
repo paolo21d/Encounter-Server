@@ -11,6 +11,8 @@ using namespace sf;
 
 Game::Game()
 {
+	myOpponent[0] = myOpponent[1] = nullptr;
+
 }
 
 Game::~Game() {
@@ -30,7 +32,9 @@ void Game::game(int id, Hero* hero)
 	for(Location* i: map.locations)
 		if(i->getId() == hero->getCurrLocationId())
 			currentLocation[id] = i;
-
+	
+	sleep(milliseconds(2000));
+	//dodać mutexowe czekanie na kolegę
 
 	Packet initialPacket;
 	initialPacket << player[id]->strength << player[id]->intelligence << player[id]->vitality << player[id]->gold;
@@ -38,7 +42,7 @@ void Game::game(int id, Hero* hero)
 	initialPacket << currentLocation[1 - id]->getId() << player[1 - id]->getX() << player[1 - id]->getY();
 	communication.tabsoc[id].send(initialPacket);
 
-	Packet pckt;
+	Packet pckt;		// pierwszy pakiet z exploreNews
 	news[id] = &newsE[id];
 	newsE[id].gameMode = EXPLORE;
 	newsE[id].endGame = 0;
@@ -54,8 +58,9 @@ void Game::game(int id, Hero* hero)
 	pckt << newsE[id];
 	communication.tabsoc[id].send(pckt);
 				cout << "Gracz " << id << " dostał pakiety inicjalizacyjne" << endl;
+
 	int mode;
-	while(1)
+	while(1)		// główna nieskończona pętla
 	{
 		//////////////////// SPRAWDŹ, CZY KTOŚ SIĘ NIE ROZŁĄCZYŁ
 		Packet pcktRcv, pcktSnd;
@@ -75,11 +80,8 @@ void Game::game(int id, Hero* hero)
 				pcktSnd << newsF[id];
 				break;
 			case 2:
-				int xx = newsD[id].areaToGoBackAfterDealX, yy = newsD[id].areaToGoBackAfterDealY;
 				pcktRcv >> newsD[id];
 				news[id] = &newsD[id];
-				newsD[id].areaToGoBackAfterDealX = xx;
-				newsD[id].areaToGoBackAfterDealY = yy;
 				deal(id);		// w środku muszę ustawić gameMode w zależności od posX, posY
 				pcktSnd << newsD[id];
 				break;
@@ -93,34 +95,41 @@ void Game::explore(int id)
 {
 	exploreMutex.lock();
 
-	if(gameEndsWinnerIs != nullptr)
-	{
+	if(gameEndsWinnerIs != nullptr) {
 		
 	}
-	//sprawdzić, czy przeciwnik się przypadkiem nie bije
 
+	if(myOpponent[1 - id] != nullptr) {
+		newsE[id].gameMode = FIGHT;
+		myOpponent[id] = player[1 - id];
+	}
+	else {
 	//if(id == 0) cout << "Pozycja: " <<newsE[id].positionX << " " << newsE[id].positionY << endl;
+		if(currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] != nullptr && currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] != player[id]) {	// ustawiam gameMode w newsE
+			newsE[id].gameMode = currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY]->interaction();
+		}
+		else 
+			newsE[id].gameMode = EXPLORE;
+		
 
-	if(currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] != nullptr && currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] != player[id]) {	// ustawiam gameMode w newsE
-		newsE[id].gameMode = currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY]->interaction();
-	}
-	else 
-		newsE[id].gameMode = EXPLORE;
-	
-
-	if(newsE[id].gameMode == DEAL)
-	{
-		newsD[id].areaToGoBackAfterDealX = playerX[id];
-		newsD[id].areaToGoBackAfterDealY = playerY[id];
-		dealX[id] = newsE[id].positionX;
-		dealY[id] = newsE[id].positionY;
-	}
-	else if(newsE[id].gameMode == EXPLORE)
-	{
-		currentLocation[id]->occupation[playerX[id]][playerY[id]] = nullptr;
-		currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] = player[id];
-		playerX[id] = newsE[id].positionX;
-		playerY[id] = newsE[id].positionY;
+		if(newsE[id].gameMode == DEAL)
+		{
+			areaAfterDealX[id] = playerX[id];
+			areaAfterDealY[id] = playerY[id];
+			dealX[id] = newsE[id].positionX;
+			dealY[id] = newsE[id].positionY;
+		}
+		else if(newsE[id].gameMode == FIGHT)
+		{
+			myOpponent[id] = (Character*) currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY];
+		}
+		else if(newsE[id].gameMode == EXPLORE)
+		{
+			currentLocation[id]->occupation[playerX[id]][playerY[id]] = nullptr;
+			currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY] = player[id];
+			playerX[id] = newsE[id].positionX;
+			playerY[id] = newsE[id].positionY;
+		}
 	}
 
 	// poniżej wypełniam adjecent zakładając, że liczymy pola od lewego górnego
@@ -222,21 +231,19 @@ void Game::fight(int id)
 		newsF[id].endFight = 1;
 		delete enemy;
 		currentLocation[id]->occupation[playerX[id]][playerY[id]] = player[id];
+		myOpponent[id] = nullptr;
 	}
 	else
 	{
 		newsF[id].endFight = 2;
 		gameEndsWinnerIs = player[1 - id];
 	}
-	// wygrany zajmuje dane pole
 }
 	
 void Game::deal(int id)
 {
 	cout << id << "handelkujemy" << endl;
 	
-	int areaToGoBackAfterDealX = newsD[id].areaToGoBackAfterDealX;
-	int areaToGoBackAfterDealY = newsD[id].areaToGoBackAfterDealY;
 	bool dealerOrChest;		// 0 => dealer; 1 => chest
 	Packet pcktSnd, pcktRcv;
 	int temp = 0;
@@ -261,6 +268,7 @@ void Game::deal(int id)
 	else		//dealer
 	{
 		Dealer* dealer = (Dealer*) something;
+		dealer->printCards();
 		newsD[id].dealerFactor = dealer->saleFactor;
 		newsD[id].cardsId.clear();
 		for(Card* x: dealer->soldCards.deck)
@@ -300,24 +308,27 @@ void Game::deal(int id)
 			sumPaid += (newsD[id].boostStr + newsD[id].boostInt + newsD[id].boostVit) * STATPRICE;
 			sumPaid *= newsD[id].dealerFactor;
 		}
-		if(sumPaid > player[id]->getGold())
+		if(sumPaid > player[id]->getGold()) {
 			newsD[id].accept = false;
+		}
 		else
 		{
+			Dealer* dealer = (Dealer*) something;
+			dealer->removeCards(newsD[id].cardsId);
 			newsD[id].accept = true;
 			player[id]->removeGold(sumPaid);
 			player[id]->addCards(newsD[id].cardsId);
 			player[id]->changeIntelligence(newsD[id].boostInt);
 			player[id]->changeStrength(newsD[id].boostStr);
 			player[id]->changeVitality(newsD[id].boostVit);
+			dealer->printCards();
 		}
-		Dealer* dealer = (Dealer*) something;
-		dealer->removeCards(newsD[id].cardsId);
+		
 	}
 	// ustaw w newsD gameMode == EXPLORE i każ ziomkowi się cofnąć
 	newsD[id].gameMode = EXPLORE;
-	newsD[id].areaToGoBackAfterDealX = areaToGoBackAfterDealX;
-	newsD[id].areaToGoBackAfterDealY = areaToGoBackAfterDealY;
+	newsD[id].areaToGoBackAfterDealX = areaAfterDealX[id];
+	newsD[id].areaToGoBackAfterDealY = areaAfterDealY[id];
 
 	cout << id << "koniec handelkowania" << endl;
 
