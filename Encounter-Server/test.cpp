@@ -75,7 +75,7 @@ int main()
 	tzwei.setX(5);
 	tzwei.setY(5);
 
-	int portNumber = 2009;
+	int portNumber = 2010;
 	TcpListener listener;
 
 	listener.listen(portNumber);

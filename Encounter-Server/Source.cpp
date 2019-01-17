@@ -1,26 +1,53 @@
-//#include <iostream>
-//#include <SFML/Network.hpp>
-//
-//#include "Communication.h"
-//using namespace std;
-//
-////const unsigned mapSizeX=1000, mapSizeY=550;
-////const unsigned areaSizeX=50, areaSizeY=25;
-//int main() {
-//
-//
-//	//sf::TcpSocket socket;
-//	//sf::TcpListener listener;
-//	//sf::IpAddress ip("192.168.0.172");
-//	//listener.listen(50000);
-//	//listener.accept(socket);
-//	/*Game g;
-//	g.startConnection(); //po tym juz mamy podlaczone 2 usery
-//	g.sendGraphics(); // wysy³a grafiki do 2 userow tworzac 2 watki
-//	g.startGame(); //tworzy 2 watki game dla 2 userow*/
-//
-//	Communication com;
-//	com.startConnection();
-//
-//	return 0;
-//}
+/*
+
+#include "semafor.h"
+#include <thread>
+#include <iostream>
+
+using namespace std;
+
+Semaphore sem1(0);
+Semaphore sem2(0);
+
+void a(int x)
+{
+    cout << "a " << x << endl;
+    if(x){
+        sleep(3);
+    }
+}
+
+void b(int x)
+{
+    cout << "b " << x << endl;
+    if(x){
+        sleep(3);
+    }
+}
+
+void x(int y)
+{
+    a(y);
+
+    if(y){
+		sem1.p();
+		sem2.v();
+	}
+	else {
+		sem1.v();
+		sem2.p();
+	}
+
+    b(y);
+}
+
+int main()
+{
+    thread onz(x, 0);
+    thread diex(x, 1);
+
+    onz.join();
+    diex.join();
+}
+
+*/

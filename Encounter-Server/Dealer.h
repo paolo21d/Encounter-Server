@@ -21,5 +21,6 @@ public:
 	virtual int freeMoney();
 	virtual Mode interaction();		//handluj z tym
 	void removeCards(std::vector<int> v);
+	void printCards();
 };
 

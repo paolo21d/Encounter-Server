@@ -9,6 +9,7 @@
 #include "Communication.h"
 #include "Location.h"
 #include "Hero.h"
+#include "semafor.h"
 #include <SFML/Network.hpp>
 
 extern const unsigned mapSizeX, mapSizeY;
@@ -23,7 +24,8 @@ class Game {
 public:	
 	// dopisać wszędzie korzystanie z mutexa !!!
 	std::mutex exploreMutex;
-	
+	Semaphore sem1;
+	Semaphore sem2;
 	Map map;
 	//vector <Card*> allCards;
 	Communication communication;
@@ -41,8 +43,14 @@ public:
 
 	int dealX[2];
 	int dealY[2];
-	
+	int areaAfterDealX[2];
+	int areaAfterDealY[2];
+
 	Hero* gameEndsWinnerIs;
+	Character* myOpponent[2];
+	int fightAreaX[2];
+	int fightAreaY[2];
+
 //public:
 	Game();
 	~Game();

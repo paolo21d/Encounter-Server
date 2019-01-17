@@ -20,11 +20,14 @@ public:
 	~Character();
 	//int getId() const;	// --||--
 	
-	void addCards(std::vector<int> v);
-	void removeCards(std::vector<int> v);
+	void addCards(std::vector<int>& v);
+	void removeCards(std::vector<int>& v);
 	void changeStrength(int x);
 	void changeIntelligence(int x);
 	void changeVitality(int x);
+	void gimmieSomeCardsBabe(std::vector<int>& v);
+	Card* kovalskiCardAnalysys(int i);	//na przyszłość połączyć z remoceCards
+	int randomCard();
 
 	virtual Mode interaction();
 	virtual areaType checkAdjacent();

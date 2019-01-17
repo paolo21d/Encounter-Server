@@ -23,14 +23,14 @@ Character::Character(int x_, int y_, int s, int i, int v, string fileName): stre
 
 ///////////////		POZOSTAŁE
 
-void Character::addCards(std::vector<int> v){
+void Character::addCards(std::vector<int>& v){
 	for(int i: v)
 	{
 		myDeck.addCard(i);
 	}
 }
 
-void Character::removeCards(std::vector<int> v){
+void Character::removeCards(std::vector<int>& v){
 	for(int i: v)
 	{
 		myDeck.removeCard(i);
@@ -47,6 +47,22 @@ void Character::changeIntelligence(int x){
 
 void Character::changeVitality(int x){
 	vitality += x;
+}
+
+void Character::gimmieSomeCardsBabe(vector<int>& v)
+{
+	myDeck.fillRandomCards(v);
+	return;
+}
+
+Card* Character::kovalskiCardAnalysys(int i)
+{
+	return myDeck.kovalskiSupport(i);
+}
+
+int Character::randomCard()
+{
+	return myDeck.randomCard();
 }
 
 //////////////		VIRTUALNE

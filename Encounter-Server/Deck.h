@@ -16,7 +16,11 @@ public:
 	void addCard(const int cardNum);
 	void removeCard(const int cardNum);
 	void fill(int amount);
+	void fillRandomCards(vector<int>& v);
+	int randomCard();
+	Card* kovalskiSupport(int i);
 
+	void print();
 };
 
 #endif // !DECK_H
