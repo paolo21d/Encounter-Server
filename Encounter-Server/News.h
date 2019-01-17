@@ -59,7 +59,7 @@ public:
 	int hp[2];
 	int mana[2];
 	int cardAmount[2];
-	std::vector<int> cardsId[2];	// posiadane karty
+	std::vector<int> cardsId;	// posiadane karty
 	int chosenCard;
 
 	NewsFight();

@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "Dealer.h"
 #include "Chest.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -57,7 +58,7 @@ void Game::game(int id, Hero* hero)
 	newsE[id].positionY = player[id] -> getY();
 	pckt << newsE[id];
 	communication.tabsoc[id].send(pckt);
-				cout << "Gracz " << id << " dostał pakiety inicjalizacyjne" << endl;
+			cout << "Gracz " << id << " dostał pakiety inicjalizacyjne" << endl;
 
 	int mode;
 	while(1)		// główna nieskończona pętla
@@ -91,6 +92,8 @@ void Game::game(int id, Hero* hero)
 	}
 }
 
+////////////////////////////////////		EXPLORE			////////////////////////////////
+
 void Game::explore(int id)
 {
 	exploreMutex.lock();
@@ -121,6 +124,8 @@ void Game::explore(int id)
 		}
 		else if(newsE[id].gameMode == FIGHT)
 		{
+			fightAreaX[id] = newsE[id].positionX;
+			fightAreaY[id] = newsE[id].positionY;
 			myOpponent[id] = (Character*) currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY];
 		}
 		else if(newsE[id].gameMode == EXPLORE)
@@ -171,19 +176,153 @@ void Game::explore(int id)
 	exploreMutex.unlock();
 }
 
+////////////////////////////////////		FIGHT		///////////////////////////////////
+
 void Game::fight(int id)
 {
+		//	*	poczekaj na kolegę
 	Packet pcktRcv, pcktSnd;
-	int v, s, i;
-	Character* enemy = (Character*) currentLocation[id]->occupation[playerX[id]][playerY[id]];
-
-		s = newsF[id].strength[0] = player[id]->strength;
-		v = newsF[id].vitality[0] = player[id]->vitality;
-		i = newsF[id].intelligence[0] = player[id]->intelligence;
-
-	// odebrany przed chwilą newsF jest pusty
+	Character* enemy = myOpponent[id];
+	Character* myself = myOpponent[1 - id];
+	bool IamMyself = myOpponent[1-id] == player[id];
 	
-	newsF[id].endFight = 0;
+	int v[2], s[2], i[2];
+	s[0] = myself->strength;		// po walce ustawię na nie moje statystyki
+	v[0] = myself->vitality;
+	i[0] = myself->intelligence;
+	s[1] = enemy->strength;		// po walce ustawię na nie moje statystyki
+	v[1] = enemy->vitality;
+	i[1] = enemy->intelligence;
+		// odebrany przed chwilą newsF jest pusty
+		//ustaw wstępne news
+	newsF[id].endFight = 0; 
+
+	newsF[id].strength[0] = s[0];
+	newsF[id].intelligence[0] = newsF[id].mana[0] = i[0];
+	newsF[id].vitality[0] = newsF[id].hp[0] = v[0];
+
+	newsF[id].strength[1] = enemy->strength;
+	newsF[id].intelligence[1] = newsF[id].mana[1] = enemy->intelligence;
+	newsF[id].vitality[1] = newsF[id].hp[1] = enemy->vitality;
+
+	newsF[id].cardAmount[0] = newsF[id].cardAmount[1] = 5;
+	myself->gimmieSomeCardsBabe(newsF[id].cardsId);
+	newsF[id].chosenCard = 0;
+
+		// wyślij wstępne info
+	pcktSnd << newsF[id];
+	communication.tabsoc[id].send(pcktSnd);
+
+		// wyśli do gracza 1
+	if(id){
+		communication.tabsoc[id].send(pcktSnd);
+	}
+
+		//	*	poczekaj na kolegę
+		
+	while(1) {
+		Card* mightyCardThatsGonnabeatYouAll;
+		
+		if(id) {
+			communication.tabsoc[id].receive(pcktRcv);
+			pcktRcv >> newsF[id];
+			
+			mightyCardThatsGonnabeatYouAll = myself->kovalskiCardAnalysys(newsF[id].chosenCard);
+				if(mightyCardThatsGonnabeatYouAll == nullptr || mightyCardThatsGonnabeatYouAll->getCostMana() > myself->intelligence)
+					{}	//jakiś błąd
+			myself->intelligence -= mightyCardThatsGonnabeatYouAll->getCostMana();
+			enemy->vitality -= mightyCardThatsGonnabeatYouAll->getDamage();
+			myself->myDeck.removeCard(newsF[id].chosenCard);
+		}
+
+		if(myself->vitality == 0 || enemy->vitality == 0) {
+			break;
+		}
+
+			//	*	poczekaj na kolegę
+
+		newsF[id].endFight = 0; 
+		newsF[id].strength[0] = s[0];
+		newsF[id].intelligence[0] = i[0];
+		newsF[id].vitality[0] = v[0];
+		newsF[id].strength[1] = s[1];
+		newsF[id].intelligence[1] = i[1];
+		newsF[id].vitality[1] = v[1];
+		newsF[id].hp[0] = myself->vitality;
+		newsF[id].mana[0] = myself->intelligence;
+		newsF[id].hp[1] = enemy->vitality;
+		newsF[id].mana[1] = enemy->intelligence;
+		*find(newsF[id].cardsId.begin(), newsF[id].cardsId.end(), newsF[id].chosenCard) = myself->randomCard();
+		newsF[id].cardAmount[0] = newsF[id].cardsId.size();
+		newsF[id].chosenCard = 0;
+
+		pcktSnd << newsF[id];
+		communication.tabsoc[id].send(pcktSnd);
+
+		if(!id) {
+			communication.tabsoc[id].receive(pcktRcv);
+			pcktRcv >> newsF[id];
+
+			mightyCardThatsGonnabeatYouAll = myself->kovalskiCardAnalysys(newsF[id].chosenCard);
+				if(mightyCardThatsGonnabeatYouAll == nullptr || mightyCardThatsGonnabeatYouAll->getCostMana() > myself->intelligence)
+					{}	//jakiś błąd
+			myself->intelligence -= mightyCardThatsGonnabeatYouAll->getCostMana();
+			enemy->vitality -= mightyCardThatsGonnabeatYouAll->getDamage();
+			myself->myDeck.removeCard(newsF[id].chosenCard);
+		}
+
+		if(myself->vitality <= 0 || enemy->vitality <= 0) {
+			break;
+		}
+
+			//	*	poczekaj na kolegę
+		
+		newsF[id].endFight = 0; 
+		newsF[id].strength[0] = s[0];
+		newsF[id].intelligence[0] = i[0];
+		newsF[id].vitality[0] = v[0];
+		newsF[id].strength[1] = s[1];
+		newsF[id].intelligence[1] = i[1];
+		newsF[id].vitality[1] = v[1];
+		newsF[id].hp[0] = myself->vitality;
+		newsF[id].mana[0] = myself->intelligence;
+		newsF[id].hp[1] = enemy->vitality;
+		newsF[id].mana[1] = enemy->intelligence;
+		*find(newsF[id].cardsId.begin(), newsF[id].cardsId.end(), newsF[id].chosenCard) = myself->randomCard();
+		newsF[id].cardAmount[0] = newsF[id].cardsId.size();
+		newsF[id].chosenCard = 0;
+
+		pcktSnd << newsF[id];
+		communication.tabsoc[id].send(pcktSnd);
+	}
+
+	// to robi wygrany
+
+	newsF[id].gameMode = EXPLORE;
+	if(enemy->vitality <= 0)
+	{
+		myself->intelligence = i[0];
+		myself->vitality = v[0];
+		myself->strength = s[0];
+		newsF[id].endFight = 1;
+
+		if(IamMyself){
+			currentLocation[id]->occupation[fightAreaX[id]][fightAreaY[id]] = myself;
+			currentLocation[id]->occupation[playerX[id]][playerY[id]] = nullptr;
+			playerX[id] = fightAreaX[id];
+			playerY[id] = fightAreaY[id];
+		}
+		myOpponent[id] = nullptr;
+		newsF[1 - id].endFight = 2;
+		//gameEndsWinnerIs = ...
+	}
+}
+
+		
+
+	
+/*			stary fight
+
 	while( enemy->vitality != 0 && player[id]->vitality != 0 )
 	{
 	//		wyślij dane moje 
@@ -238,8 +377,10 @@ void Game::fight(int id)
 		newsF[id].endFight = 2;
 		gameEndsWinnerIs = player[1 - id];
 	}
-}
-	
+*/
+
+//////////////////////////////////		DEAL		///////////////////////////////////
+
 void Game::deal(int id)
 {
 	cout << id << "handelkujemy" << endl;

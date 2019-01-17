@@ -46,6 +46,8 @@ public:
 
 	Hero* gameEndsWinnerIs;
 	Character* myOpponent[2];
+	int fightAreaX[2];
+	int fightAreaY[2];
 
 //public:
 	Game();

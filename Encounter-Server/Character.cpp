@@ -49,6 +49,22 @@ void Character::changeVitality(int x){
 	vitality += x;
 }
 
+void Character::gimmieSomeCardsBabe(vector<int>& v)
+{
+	myDeck.fillRandomCards(v);
+	return;
+}
+
+Card* Character::kovalskiCardAnalysys(int i)
+{
+	return myDeck.kovalskiSupport(i);
+}
+
+int Character::randomCard()
+{
+	return myDeck.randomCard();
+}
+
 //////////////		VIRTUALNE
 
 areaType Character::checkAdjacent()

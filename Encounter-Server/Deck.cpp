@@ -55,3 +55,28 @@ void Deck::print()
     }
     cout << endl;
 }
+
+void Deck::fillRandomCards(vector<int>& v)
+{
+    vector<int> temp;
+    int x = 0;
+    for(int i: v) {
+        i = deck[x]->getId();
+        ++x;
+    }
+    return;
+}
+
+int Deck::randomCard()
+{
+    return deck[rand()%deck.size()]->getId();
+}
+
+Card* Deck::kovalskiSupport(int i)
+{
+    for(Card* a: deck) {
+        if(a->getId() == i)
+            return a;
+    }
+    return nullptr;
+}
