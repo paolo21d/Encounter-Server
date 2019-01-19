@@ -3,7 +3,7 @@
 
 ///////////////////////////		KONSTRUTORY
 
-Hero::Hero(): gold(BASICSTATS) {
+Hero::Hero(): Character(0, 0, 0, 0, 0, "hero0.png"), gold(BASICSTATS) {
 	changeStrength(BASICSTATS);
 	changeIntelligence(BASICSTATS);
 	changeVitality(BASICSTATS);

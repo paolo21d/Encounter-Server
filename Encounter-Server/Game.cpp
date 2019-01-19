@@ -104,6 +104,7 @@ void Game::game(int id, Hero* hero)
 void Game::explore(int id)
 {
 	exploreMutex.lock();
+	cout << "Start explore" << id << endl; 
 
 	if(gameEndsWinnerIs != nullptr) {
 		
@@ -111,7 +112,8 @@ void Game::explore(int id)
 
 	if(myOpponent[1 - id] != nullptr) {
 		newsE[id].gameMode = FIGHT;
-		myOpponent[id] = player[1 - id];
+		exploreMutex.unlock();
+		return;
 	}
 	else {
 	//if(id == 0) cout << "Pozycja: " <<newsE[id].positionX << " " << newsE[id].positionY << endl;
@@ -134,6 +136,20 @@ void Game::explore(int id)
 			fightAreaX[id] = newsE[id].positionX;
 			fightAreaY[id] = newsE[id].positionY;
 			myOpponent[id] = (Character*) currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY];
+			myOpponent[1-id] = player[id];
+			mobIndexInLocationArray = currentLocation[id]->getId();
+			int temp;
+			for (int k = 0; k < areasCountX; ++k) {
+				for (int j = 0; j < areasCountY; ++j) {
+					if (currentLocation[id]->occupation[k][j] != nullptr && currentLocation[id]->occupation[k][j] != player[id] && currentLocation[id]->occupation[k][j] != player[1 - id]) {
+						if(k == newsE[id].positionX && j == newsE[id].positionY){
+							mobIndexInObjectArray = temp;
+							break;
+						}
+						++temp;
+					}
+				}
+			}
 		}
 		else if(newsE[id].gameMode == EXPLORE)
 		{
@@ -187,6 +203,7 @@ void Game::explore(int id)
 
 void Game::fight(int id)
 {
+	cout << "1 " << id << endl;
 		//	*	poczekaj na kolegę
 		if(id){
 			sem1.p();
@@ -196,6 +213,7 @@ void Game::fight(int id)
 			sem1.v();
 			sem2.p();
 		}
+
 	Packet pcktRcv, pcktSnd;
 	Character* enemy = myOpponent[id];
 	Character* myself = myOpponent[1 - id];
@@ -211,25 +229,38 @@ void Game::fight(int id)
 		// odebrany przed chwilą newsF jest pusty
 		//ustaw wstępne news
 	newsF[id].endFight = 0; 
-
 	newsF[id].strength[0] = s[0];
 	newsF[id].intelligence[0] = newsF[id].mana[0] = i[0];
-	newsF[id].vitality[0] = newsF[id].hp[0] = v[0];
+	newsF[id].hp[0] = v[0];	// vitality będzie służyć do czegoś innego
 
 	newsF[id].strength[1] = enemy->strength;
 	newsF[id].intelligence[1] = newsF[id].mana[1] = enemy->intelligence;
-	newsF[id].vitality[1] = newsF[id].hp[1] = enemy->vitality;
+	newsF[id].hp[1] = enemy->vitality; // vitality będzie służyć do czegoś innego
 
 	newsF[id].cardAmount[0] = newsF[id].cardAmount[1] = 5;
 	myself->gimmieSomeCardsBabe(newsF[id].cardsId);
-	newsF[id].chosenCard = 0;
+	if(id)
+		newsF[id].chosenCard = -1;
+	else
+		newsF[id].chosenCard = 0;
+
+	newsF[id].vitality[0] = mobIndexInLocationArray;
+	newsF[id].vitality[1] = mobIndexInObjectArray;
 
 		// wyślij wstępne info
 	pcktSnd << newsF[id];
 	communication.tabsoc[id].send(pcktSnd);
 
+		// popraw vitality, już na normalne
+	newsF[id].hp[0] = v[0];
+	newsF[id].hp[1] = v[1];
+	newsF[id].vitality[0] = v[0];
+	newsF[id].vitality[1] = v[1];
+
 		// wyśli do gracza 1
 	if(id){
+		newsF[id].chosenCard = -1;
+		pcktSnd << newsF[id];
 		communication.tabsoc[id].send(pcktSnd);
 	}
 
@@ -242,6 +273,7 @@ void Game::fight(int id)
 			sem1.v();
 			sem2.p();
 		}
+
 	while(1) {
 		Card* mightyCardThatsGonnabeatYouAll;
 		
@@ -255,6 +287,12 @@ void Game::fight(int id)
 			myself->intelligence -= mightyCardThatsGonnabeatYouAll->getCostMana();
 			enemy->vitality -= mightyCardThatsGonnabeatYouAll->getDamage();
 			myself->myDeck.removeCard(newsF[id].chosenCard);
+				// ustaw przeciwnikowi, jaką kartę wybrałeś
+			newsF[1 - id].chosenCard = newsF[id].chosenCard;
+
+			cout << id << " wybrał kartę" << newsF[id].chosenCard << endl << ". Nowe hp " << id << ": " << myself->vitality << ". Nowe hp " << 1 - id << ": " << enemy->vitality << endl;
+
+			newsF[id].chosenCard = 0;
 		}
 
 			//	*	poczekaj na kolegę
@@ -283,8 +321,9 @@ void Game::fight(int id)
 		newsF[id].mana[1] = enemy->intelligence;
 		*find(newsF[id].cardsId.begin(), newsF[id].cardsId.end(), newsF[id].chosenCard) = myself->randomCard();
 		newsF[id].cardAmount[0] = newsF[id].cardsId.size();
-		newsF[id].chosenCard = 0;
+		newsF[id].cardAmount[1] = enemy->myDeck.deck.size();
 
+		cout << id << " News: " << newsF[id].chosenCard << newsF[id].hp[0] << newsF[id].mana[0] << " " << newsF[id].hp[1] << newsF[id].mana[1] << endl;
 		pcktSnd << newsF[id];
 		communication.tabsoc[id].send(pcktSnd);
 
@@ -298,6 +337,11 @@ void Game::fight(int id)
 			myself->intelligence -= mightyCardThatsGonnabeatYouAll->getCostMana();
 			enemy->vitality -= mightyCardThatsGonnabeatYouAll->getDamage();
 			myself->myDeck.removeCard(newsF[id].chosenCard);
+			newsF[1 - id].chosenCard = newsF[id].chosenCard;
+
+			cout << id << " wybrał kartę" << newsF[id].chosenCard << endl << ". Nowe hp " << id << ": " << myself->vitality << ". Nowe hp " << 1 - id << ": " << enemy->vitality << endl;
+			
+			newsF[id].chosenCard = 0;
 		}
 			//	*	poczekaj na kolegę
 			if(id){
@@ -324,6 +368,7 @@ void Game::fight(int id)
 		newsF[id].mana[1] = enemy->intelligence;
 		*find(newsF[id].cardsId.begin(), newsF[id].cardsId.end(), newsF[id].chosenCard) = myself->randomCard();
 		newsF[id].cardAmount[0] = newsF[id].cardsId.size();
+		newsF[id].cardAmount[1] = enemy->myDeck.deck.size();
 		newsF[id].chosenCard = 0;
 
 		pcktSnd << newsF[id];
@@ -347,6 +392,7 @@ void Game::fight(int id)
 			playerY[id] = fightAreaY[id];
 		}
 		myOpponent[id] = nullptr;
+		myOpponent[1 - id] = nullptr;
 		newsF[1 - id].endFight = 2;
 		//gameEndsWinnerIs = ...
 	}
@@ -359,6 +405,7 @@ void Game::fight(int id)
 				sem1.v();
 				sem2.p();
 			}
+	cout << "Kończymy walczenie " << id << endl;
 }
 
 		

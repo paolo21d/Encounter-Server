@@ -102,7 +102,7 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
 	pckt << x.intelligence[0] << x.intelligence[1];
 	pckt << x.vitality[0] << x.vitality[1];
 	pckt << x.hp[0] << x.hp[1] << x.mana[0] << x.mana[1];
-	pckt << static_cast<int>(x.cardsId.size()) << a;
+	pckt << static_cast<int>(x.cardsId.size()) << x.cardAmount[1];
 	for(int j = 0; j < x.cardAmount[0]; ++j)
 		pckt << x.cardsId[j];
 	pckt << x.chosenCard;
@@ -111,16 +111,18 @@ sf::Packet & operator<<(sf::Packet & pckt, const NewsFight & x) {
 }
 
 sf::Packet & operator >> (sf::Packet & pckt, NewsFight & x) {
+	/*
+	int i, a;
 	pckt >> x.endFight;
 	pckt >> x.strength[0] >> x.strength[1];
 	pckt >> x.intelligence[0] >> x.intelligence[1];
 	pckt >> x.vitality[0] >> x.vitality[1];
 	pckt >> x.hp[0] >> x.hp[1];
 	pckt >> x.mana[0] >> x.mana[1];
-	pckt >> x.cardAmount[0] >> x.cardAmount[1];
-	for(int j = 0; j < x.cardAmount[0]; ++j)
-		pckt >> x.cardsId[j];
+	pckt >> i;
+	for(int j = 0; j < i; ++j)
+		pckt >> a;
+	*/
 	pckt >> x.chosenCard;
-	
 	return pckt;
 }

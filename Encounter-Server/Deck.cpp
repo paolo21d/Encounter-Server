@@ -58,11 +58,11 @@ void Deck::print()
 
 void Deck::fillRandomCards(vector<int>& v)
 {
-    vector<int> temp;
-    int x = 0;
-    for(int i: v) {
-        i = deck[x]->getId();
-        ++x;
+    int x;
+    v.clear();
+    for(int i: {0, 1, 2, 3, 4}){
+        x = deck[rand()%deck.size()]->getId();
+        v.push_back(x);
     }
     return;
 }

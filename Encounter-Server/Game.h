@@ -27,6 +27,7 @@ public:
 	Semaphore sem1;
 	Semaphore sem2;
 	Map map;
+	std::mutex aaa;
 	//vector <Card*> allCards;
 	Communication communication;
 	Location *currentLocation[2];
@@ -50,6 +51,8 @@ public:
 	Character* myOpponent[2];
 	int fightAreaX[2];
 	int fightAreaY[2];
+	int mobIndexInLocationArray;
+	int mobIndexInObjectArray;
 
 //public:
 	Game();
