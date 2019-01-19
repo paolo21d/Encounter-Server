@@ -21,6 +21,7 @@
 class Semaphore
 {
 public:
+	Semaphore();
   Semaphore( int value )
   {
 #ifdef _WIN32
