@@ -155,7 +155,7 @@ void Game::explore(int id)
 			myOpponent[id] = (Character*) currentLocation[id]->occupation[newsE[id].positionX][newsE[id].positionY];
 			myOpponent[1-id] = player[id];
 			mobIndexInLocationArray = currentLocation[id]->getId();
-			int temp;
+			int temp=0;
 			for (int k = 0; k < areasCountX; ++k) {
 				for (int j = 0; j < areasCountY; ++j) {
 					if (currentLocation[id]->occupation[k][j] != nullptr && currentLocation[id]->occupation[k][j] != player[id] && currentLocation[id]->occupation[k][j] != player[1 - id]) {
