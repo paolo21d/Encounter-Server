@@ -48,6 +48,7 @@ public:
 	int areaAfterDealY[2];
 
 	Hero* gameEndsWinnerIs;
+	bool quitThreads[2];
 	Character* myOpponent[2];
 	int fightAreaX[2];
 	int fightAreaY[2];

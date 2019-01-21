@@ -74,9 +74,12 @@ int Deck::randomCard()
 
 Card* Deck::kovalskiSupport(int i)
 {
+    cout << "vwesdfc" << endl;
     for(Card* a: deck) {
-        if(a->getId() == i)
+        if(a->getId() == i) {
+            cout << a->getId() << endl;
             return a;
+        }
     }
     return nullptr;
 }

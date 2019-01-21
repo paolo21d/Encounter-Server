@@ -27,6 +27,6 @@ Map::Map() {
 
 
 Map::~Map() {
-    for(int i = locations.size() - 1; i >= 0; --i)
-        delete &locations[i];
+    //for(int i = locations.size() - 1; i >= 0; --i)
+        //delete &locations[i];
 }

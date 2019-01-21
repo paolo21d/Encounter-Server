@@ -54,7 +54,7 @@ int main()
 const unsigned mapSizeX = 1000, mapSizeY = 550;
 const unsigned areaSizeX = 100, areaSizeY = 50;
 const unsigned areasX = mapSizeX/areaSizeX, areasY = mapSizeY/areaSizeY;
-const int BASICSTATS = 10;
+const int BASICSTATS = 2;
 const unsigned locationAmount = 1;
 const int STATPRICE = 1;
 const unsigned STARTINGCARDS = 5;
@@ -75,7 +75,7 @@ int main()
 	tzwei.setX(5);
 	tzwei.setY(5);
 
-	int portNumber = 2012;
+	int portNumber = 2017;
 	TcpListener listener;
 
 	listener.listen(portNumber);
@@ -95,4 +95,5 @@ int main()
 
 	tre.join();
 	quattro.join();
+	cout << "KONIEC" << endl;
 }
