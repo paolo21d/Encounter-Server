@@ -9,6 +9,7 @@
 
 enum Mode { EXPLORE, FIGHT, DEAL };
 enum areaType { EMPTY, IMPASSABLE, INTERACTING};
+enum NothingLastsForever { KEEP_PLAYING, LOOSER, LONG_LIVE_THE_WINNER, COWARD_RUN_AWAY };
 
 class News {
 public:
@@ -22,7 +23,7 @@ public:
 	NewsExplore(Mode mode, int posX, int posY);
 	NewsExplore();
 	
-	int endGame; // 0 - gramy dalej; 1 - przegrałeś; 3 - grubas spitolił w holipę; 2 - rozwaliłeś ziomka
+	NothingLastsForever endGame; // 0 - gramy dalej; 1 - przegrałeś; 3 - grubas spitolił w holipę; 2 - rozwaliłeś ziomka
 	areaType adjacent[4]; //0-góra, 1-prawa, 2-dół, 3-lewa //wysylane z serwera do klienta
 	int positionX, positionY; //wysylane od klienta do serwera
 	int oponentLocationId;

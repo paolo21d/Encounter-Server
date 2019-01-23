@@ -16,8 +16,6 @@ class Card {
 	unsigned price;
 	unsigned damage; // to s� punkty obrazen zadawane
 	
-	//uchwyt do Slider - obrazek
-
 public:
 	Card();
 	Card(const string n, const int dmg, const int mana, const int money, const int num);

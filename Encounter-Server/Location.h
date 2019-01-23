@@ -13,7 +13,6 @@ const unsigned areasCountY = 11;
 class Location {
 	int id;
 	std::string backgroundSource;
-	//Object* ocupation[ mapSizeX/areaSizeX ][ mapSizeY/areaSizeY ];
 
 public:
 	Object* occupation[areasCountX][areasCountY];

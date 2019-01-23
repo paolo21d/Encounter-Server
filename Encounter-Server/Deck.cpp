@@ -60,8 +60,8 @@ void Deck::fillRandomCards(vector<int>& v)
 {
     int x;
     v.clear();
-    for(int i: {0, 1, 2, 3, 4}){
-        x = deck[rand()%deck.size()]->getId();
+    for(int i = 0; i < 5 && i < deck.size(); ++i) {
+        x = deck[i]->getId();
         v.push_back(x);
     }
     return;

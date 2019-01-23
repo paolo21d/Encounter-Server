@@ -60,7 +60,8 @@ sf::Packet& operator<<(sf::Packet& pckt, const NewsExplore& x){
 sf::Packet & operator >> (sf::Packet & pckt, NewsExplore & x) {			
 	int temp;					 
 	pckt >> temp;							 //nowa formuła obsługi game sama ustawia gameMode
-	pckt >> x.endGame;
+	pckt >> temp;
+	x.endGame = static_cast<NothingLastsForever>(temp);
 	for (int i : {0, 1, 2, 3})
 	{
 		pckt >> temp;

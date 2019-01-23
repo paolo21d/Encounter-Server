@@ -29,20 +29,14 @@ public:
 	friend class Game;
 	mutex mm;
 	sf::TcpSocket tabsoc[2];
+	sf::Socket::Status status[2];
 
 //public:
 	Communication();
 	~Communication();
 
 	void sendMap(const Map& map, const int num);
-	
-	///////		testowe:
-	
-	void startConnection();
-	void testSendImg();
-	void srdata(int num, int socnum);
-	void sendData(int num, int socnum);
-	void receiveData(int num, int socnum);
+
 };
 
 #endif // !COMMUNICATION_H

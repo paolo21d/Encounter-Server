@@ -8,8 +8,6 @@
 
 class Hero;
 
-//extern const unsigned mapSizeX, mapSizeY;		//ile pikseli ma lokacja
-//extern const unsigned areaSizeX, areaSizeY;		//ile pikseli ma pole
 
 class Object {	
 protected:
