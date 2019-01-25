@@ -54,7 +54,12 @@ public:
 	int areaAfterDealX[2];
 	int areaAfterDealY[2];
 
+<<<<<<< HEAD
 	Character* myOpponent[2];	// zmienne potrzebne do obsługi walki
+=======
+	Hero* gameEndsWinnerIs;
+	Character* myOpponent[2];
+>>>>>>> parent of 3520968... działa fight z przeciwnikiem
 	int fightAreaX[2];
 	int fightAreaY[2];
 	int mobIndexInLocationArray;

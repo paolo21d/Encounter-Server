@@ -25,6 +25,7 @@ Map::Map() {
 
 
 Map::~Map() {
+<<<<<<< HEAD
     for(Card* a: allCards)
     {
         delete a;
@@ -34,4 +35,8 @@ Map::~Map() {
     {
         delete b;
     }
+=======
+    for(int i = locations.size() - 1; i >= 0; --i)
+        delete &locations[i];
+>>>>>>> parent of 3520968... działa fight z przeciwnikiem
 }

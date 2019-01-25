@@ -54,7 +54,7 @@ int main()
 const unsigned mapSizeX = 1000, mapSizeY = 550;
 const unsigned areaSizeX = 100, areaSizeY = 50;
 const unsigned areasX = mapSizeX/areaSizeX, areasY = mapSizeY/areaSizeY;
-const int BASICSTATS = 2;
+const int BASICSTATS = 10;
 const unsigned locationAmount = 1;
 const int STATPRICE = 1;
 const unsigned STARTINGCARDS = 5;
@@ -75,7 +75,7 @@ int main()
 	tzwei.setX(5);
 	tzwei.setY(5);
 
-	int portNumber = 2017;
+	int portNumber = 2012;
 	TcpListener listener;
 
 	listener.listen(portNumber);
@@ -98,6 +98,9 @@ int main()
 
 	tre.join();
 	quattro.join();
+<<<<<<< HEAD:Encounter-Server/main.cpp
 
 	cout << "KONIEC" << endl;
+=======
+>>>>>>> parent of 3520968... działa fight z przeciwnikiem:Encounter-Server/test.cpp
 }

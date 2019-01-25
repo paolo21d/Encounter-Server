@@ -13,7 +13,7 @@ Location::Location(string fileName, int newId): backgroundSource(fileName), id(n
 		for (int k = 0; k < areasCountY; ++k)
 			occupation[i][k] = nullptr;
 
-	Character* mob = new Character(/* x, y, s, i, v, name*/ 7, 5, 1, 10, 1, "mob1.png");
+	Character* mob = new Character(/* x, y, s, i, v, name*/ 7, 5, 1, 10, 3, "mob1.png");
 	occupation[7][5] = mob;
 
 	Dealer* dealer = new Dealer(/* x, y, saleFactor, name*/5, 3, 0.5, "dealer1.png");
