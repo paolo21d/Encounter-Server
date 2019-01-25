@@ -34,7 +34,7 @@ Location::~Location() {
 	for (int i = 0; i < areasCountX; ++i)
 		for (int k = 0; k < areasCountY; ++k)
 			if( occupation[i][k] != nullptr )
-				delete occupation[i][k];
+				{}//delete occupation[i][k];
 }
 
 int Location::getId() const{

@@ -113,6 +113,7 @@ void Game::game(int id, Hero* hero)
 		communication.status[id] = communication.tabsoc[id].send(pcktSnd);
 
 		if(quitThreads[id] == true){
+			cout << "Kończę wątek " << id << endl;
 			return;
 		}
 	}
@@ -128,7 +129,9 @@ void Game::game(int id, Hero* hero)
 
 void Game::explore(int id)
 {
+	cout << "Przed mutexem " << endl;
 	exploreMutex.lock();
+	cout << "Po mutexie" << endl;
 
 	if(gameEndsWinnerIs == player[id]) {		// sprawdzam warunek końca gry - wygrana
 		newsE[id].endGame = LONG_LIVE_THE_WINNER;
@@ -470,6 +473,7 @@ void Game::deal(int id)
 {	
 	// pamiętamy, że odebrany przed chwilą newsD jest pusty
 
+	cout << "Zaczynam handel z " << id << endl;
 	bool dealerOrChest;		// 0 => dealer; 1 => chest
 	Packet pcktSnd, pcktRcv;
 	int temp = 0;
@@ -551,7 +555,7 @@ void Game::deal(int id)
 			player[id]->changeVitality(newsD[id].boostVit);
 			dealer->printCards();
 		}
-		
+		cout << "Po handlu z " << id << endl;
 	}
 // ustaw w newsD gameMode == EXPLORE i każ ziomkowi się cofnąć
 	newsD[id].gameMode = EXPLORE;
